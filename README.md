@@ -1,9 +1,9 @@
 # scripts
 These are workflow scripts for Github productivity.
 
-* *cpr* - Create Pull Request
-* *rr* - Request review
-* *rrr* - Re-request review
+* **cpr** - Create Pull Request
+* **rr** - Request Review
+* **rrr** - Re-request Review
 
 # Setup
 Create a new Github personal access token and give it `repo` permissions.
@@ -29,29 +29,40 @@ Finally, add `/path/to/scripts/bin` to your `$PATH`.
 
     cpr [-a] [-b base_branch] [-t template]
 
-### -a
+### Set Assignees (-a)
 This option takes no parameter and sets pull request assignees in addition to reviewers.
 
-### -b
+### Set Base Branch (-b)
 This option configures the branch your pull request will compare against.
 If you do not set this, it will default to master but you can still configure it when setting up your pull request.
+If no other options are used, you can specify target branch without `-b`.
 
-### -t
+    cpr -b release
+    cpr release
+
+### Specify Template (-t)
 This option configures the pull request template.
 Without this option, `cpr.custom` is used if it exists, else `cpr.default` will be used.
 If a template parameter is provided, the template used is `config/cpr.$template`, unless it does not exist.
+
+    cpr -t messaging # uses config/cpr.messaging
 
 ## rr
 
     rrr [-f] [num...]
     rr [num] reviewer_username...
 
-### -f
-Does not prompt to confirm when re-requesting review.
-
 ### [num], [num...]
 Specifies the target pull request number(s).
 Otherwise, the script will query github for pull requests matching your current branch.
+
+    rr wjmelements
+    rr 121 wjmelements
+    rrr 120 123
+    rrr
+
+### -f
+Does not prompt to confirm when re-requesting review.
 
 # Configuration
 ## Text Editor
@@ -62,8 +73,8 @@ Set your `EDITOR` in your `~/.bashrc`, else it will default to `nano`.
     source ~/.bashrc
 
 ## Pull Request Templates
-You can add custom pull request templates by adding to `config`, and 
-
+You can add custom pull request templates, placing them in `config`.
+See the documentation for
 
 ## Github Enterprise or Bitbucket
 To add support alternative remote repositories, modify `bin/common/github`.
