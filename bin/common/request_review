@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# $1 repo ie Snapchat/appengine
+# $2 issue number
+# $3 requestees
+function request_review {
+    # need Accept header for beta github api
+    curl -H "Authorization: token $(<$GITHUB_TOKEN)" \
+         -H "Accept: application/vnd.github.black-cat-preview+json" \
+         --data "{ \"reviewers\": $3 }" \
+        $GITHUB_API/repos/$1/pulls/$2/requested_reviewers >/dev/null 2>/dev/null
+}
