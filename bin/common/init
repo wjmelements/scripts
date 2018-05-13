@@ -1,0 +1,8 @@
+#!/bin/bash
+ERROR_BEGIN="`tput bold; tput setaf 1`"
+ERROR_END="`tput sgr0`"
+function error {
+    echo "$ERROR_BEGIN""$*""$ERROR_END">&2
+    exit 1
+}
+nohup update-scripts >/dev/null 2>/dev/null &

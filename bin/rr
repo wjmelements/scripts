@@ -1,0 +1,34 @@
+#!/bin/bash
+
+source $(dirname $0)/common/init
+
+source $(dirname $0)/common/origin
+source $(dirname $0)/common/github
+
+# assumption: users aren't named numbers
+re='^[0-9]+$'
+if [[ $1 =~ $re ]];
+then
+    PRS=$1
+    shift
+else
+    BRANCH=$(git symbolic-ref --short -q HEAD)
+    source $(dirname $0)/common/pr
+    PRS=$(get_pr $ORIGIN)
+fi
+
+USAGE="usage: rr [num] [reviewers...]"
+if [[ -z "$@" ]];
+then
+    echo $USAGE
+    exit 1
+fi
+
+echo $ORIGIN#$PRS
+
+source $(dirname $0)/common/request_review
+reviewers=$(echo $@ | awk -v RS='' -v OFS='","' 'NF { $1 = $1; print "\"" $0 "\"" }')
+for pr in $PRS; do
+    echo "[$pr] Requesting $@"
+    request_review $ORIGIN $pr "[ $reviewers ]"
+done

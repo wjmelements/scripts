@@ -1,0 +1,87 @@
+#!/bin/bash
+
+source $(dirname $0)/common/init
+
+USAGE="usage: rrr [-f] [num...]"
+OPTIND=1
+while getopts 'f' flag; do
+    case "${flag}" in
+        f) FORCE= ;;
+        *) error "Unexpected option ${flag}" ;;
+    esac
+done
+shift $(($OPTIND-1))
+
+source $(dirname $0)/common/origin
+source $(dirname $0)/common/github
+
+if [[ -z "$*" ]];
+then
+    BRANCH=$(git symbolic-ref --short -q HEAD)
+    source $(dirname $0)/common/pr
+    PRS=$(get_pr $ORIGIN)
+    if [[ -z "$PRS" ]]
+    then
+        echo $USAGE
+        error "No existing pull requests for $ORIGIN:$BRANCH"
+    fi
+else
+    PRS=$*
+fi
+
+# $1 - repo to list events for e.g. Snapchat/appengine
+# $2 - PR number
+# $3 - events page number to list
+function list_reviewers_page {
+    curl -H "Authorization: token $(<$GITHUB_TOKEN)" \
+         $GITHUB_API/repos/$1/issues/$2/events?page=$3 \
+         2>/dev/null
+}
+
+# $1 - repo to list events for e.g. Snapchat/appengine
+# $2 - PR number
+function list_reviewers {
+    i=1
+    page=$(list_reviewers_page $1 $2 $i)
+    if [ "$(echo $page | jq -r .message 2>/dev/null)" == "Not Found" ]
+    then
+        error Pull request not found
+        exit 1
+    fi
+    until [ -z "$(echo "$page" | jq .[])" ]; do
+        echo $page | jq -r 'map(select(.event == "review_requested")) | .[].requested_reviewer.login'
+        let i+=1
+        page=$(list_reviewers_page $1 $2 $i)
+    done
+}
+
+source $(dirname $0)/common/request_review
+
+# $1 repo ie Snapchat/appengine
+# $2 issue number
+# $3 reviewers to request
+function request_reviews {
+    for reviewer in $3; do
+        if [ -z ${FORCE+x} ]
+        then
+            # ask
+            read -r -p "[$2] Re-request $reviewer? [y/N] " response
+            case "$response" in  
+                [yY][eE][sS]|[yY])
+                echo Re-requesting $reviewer
+                request_review $1 $2 "[\"$reviewer\"]"
+                ;;
+            esac
+
+        else
+            echo "[$2] Re-requesting $reviewer"
+            request_review $1 $2 "[\"$reviewer\"]"
+        fi
+    done
+}
+
+echo $ORIGIN#$PRS
+for PR in $PRS; do
+    reviewers=$(list_reviewers $ORIGIN $PR | uniq)
+    request_reviews $ORIGIN $PR "$reviewers"
+done

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+ORIGIN_URL=$(git config --get remote.origin.url)
+ORIGIN=$(echo $ORIGIN_URL | sed -Ene 's/^.*[:\/]([-a-zA-Z]*)\/([-a-zA-Z\._]*)$/\1\/\2/pg')
+if [ -z $ORIGIN ] || [[ "$ORIGIN" == *"Not a git repository"* ]]
+then
+    echo -e $ERROR_BEGIN"No remote url 'origin'. Are you in a git repo?"$ERROR_END
+    exit 1
+fi
+
+# repos checked out over git protocol might have the .git suffix which we want to remove
+GIT_SUFFIX=".git"
+ORIGIN=${ORIGIN%$GIT_SUFFIX}

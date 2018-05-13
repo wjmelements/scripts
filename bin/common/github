@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Can support Github Enterprise or other repos
+ghe_re='github.sc-corp.net'
+if [[ $ORIGIN_URL =~ $ghe_re ]];
+then
+    # Snapchat GHE
+    GITHUB_TOKEN=~/.github.sc
+    GITHUB_API=https://github.sc-corp.net/api/v3
+else
+    # Github
+    GITHUB_TOKEN=~/.github
+    GITHUB_API=https://api.github.com
+fi
+if [ ! -s $GITHUB_TOKEN ]
+then
+    echo -e $ERROR_BEGIN"Could not find personal access token at $GITHUB_TOKEN"$ERROR_END
+    exit 1
+fi
+case "$(ls -l $GITHUB_TOKEN)" in
+    -???------\ *)
+        ;;
+    *)
+        echo -e $ERROR_BEGIN"Your token file should never be accessible by others"$ERROR_END
+        echo -e $ERROR_BEGIN"Please revoke and generate a new token, pasting it into:"$ERROR_END
+        echo "(umask 077; rm $GITHUB_TOKEN && cat > $GITHUB_TOKEN)"
+        exit 1
+        ;;
+esac
