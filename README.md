@@ -15,6 +15,10 @@ Next, clone this repository.
 
     git clone git@github.com:wjmelements/scripts.git
 
+Install the dependency `jq`. On Mac you can do this with Homebrew.
+
+    brew install jq
+
 Finally, add `/path/to/scripts/bin` to your `$PATH`.
 
     echo 'PATH=$PATH:~/scripts/bin' >> ~/.bashrc
