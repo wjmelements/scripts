@@ -1,0 +1,9 @@
+{
+    "title": "$TITLE",
+    "head": "$BRANCH",
+    "base": "$BASE_BRANCH",
+    "body": "
+#### Changes
+(description)
+"
+}
