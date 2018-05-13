@@ -29,8 +29,14 @@ Finally, add `/path/to/scripts/bin` to your `$PATH`.
 
     cpr [-a] [-b base_branch] [-t template]
 
+cpr creates a pull request in your preferred text editor, then opens the pull request in your preferred browser, and requests reviewers.
+The reviewers are parsed from the first line of the pull request description beginning with `Reviewer`
+
+    Reviewer @wjmelements
+    Reviewers @wjmelements @mongoose700
+
 ### Set Assignees (-a)
-This option takes no parameter and sets pull request assignees in addition to reviewers.
+Using this option also sets the reviewers as assignees.
 
 ### Set Base Branch (-b)
 This option configures the branch your pull request will compare against.
