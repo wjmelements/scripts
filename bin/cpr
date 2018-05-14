@@ -6,13 +6,21 @@ source $(dirname $0)/common/github
 source $(dirname $0)/common/request_review
 source $(dirname $0)/common/set_assignees
 
-# Check arguments to see if base-branch and custom template is set
-# this is to support legacy users who are used to typing base branch without -b argument
+# TODO support trunk configuration
+TRUNK='master'
+
 if [[ $# -eq 1 ]] && [[ $1 != -* ]]
 then
+    # this supports the un-switched branch syntax
     BASE_BRANCH=$1
-else 
-    BASE_BRANCH='master' 
+else
+    UPSTREAM=$(git config --get remote.upstream.url)
+    if [ ! -z $UPSTREAM ]
+    then
+        BASE_BRANCH=$UPSTREAM:$TRUNK
+    else
+        BASE_BRANCH=$TRUNK
+    fi
 fi
 
 while getopts 'b:t:a' flag; do
@@ -25,7 +33,7 @@ while getopts 'b:t:a' flag; do
 done
 
 BRANCH=$(git symbolic-ref --short -q HEAD)
-if [ "$BRANCH" = "master" ]
+if [ "$BRANCH" = $TRUNK ]
 then
     echo -e $ERROR_BEGIN"Current branch is $BRANCH, aborting."$ERROR_END
     exit 1
