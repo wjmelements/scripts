@@ -1,0 +1,3 @@
+#!/bin/bash
+
+GITHUB_USER=$(curl -H "Authorization: token $(<$GITHUB_TOKEN)" $GITHUB_API/user 2>/dev/null | jq -r .login)
