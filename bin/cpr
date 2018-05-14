@@ -116,10 +116,10 @@ sed -E -i .bak -e 's/$/"/g' $FORMN
 
 REVIEWERS="[ $(<$FORMN) ]"
 
-request_review $ORIGIN $ISSUE_NUMBER $REVIEWERS
+request_review $ORIGIN $ISSUE_NUMBER "$REVIEWERS"
 
 if [ ! -z "$SET_ASSIGNEES" ]
 then
     echo Setting assignees...
-    set_assignees $ORIGIN $ISSUE_NUMBER $REVIEWERS
+    set_assignees $ORIGIN $ISSUE_NUMBER "$REVIEWERS"
 fi
