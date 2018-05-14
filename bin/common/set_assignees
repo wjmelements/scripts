@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# $1 repo ie Snapchat/appengine
+# $2 issue number
+# $3 assignees
+function set_assignees {
+    SA_OUT=/tmp/$ORIGIN/sa.out
+    curl -H "Authorization: token $(<$GITHUB_TOKEN)" \
+         --data "{ \"assignees\": $3 }" \
+        $GITHUB_API/repos/$1/issues/$2/assignees 2>/dev/null >$SA_OUT
+    SA_ERR=/tmp/$ORIGIN/sa.err
+    cat $SA_OUT | jq -er .message > $SA_ERR \
+        && echo -n $ERROR_BEGIN\
+        && cat $SA_ERR \
+        && echo -n $ERROR_END
+}
+
