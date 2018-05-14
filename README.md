@@ -30,7 +30,7 @@ Finally, add `/path/to/scripts/bin` to your `$PATH`.
 
     cpr [-a] [-b base_branch] [-t template]
 
-cpr creates a pull request in your preferred text editor, then opens the pull request in your preferred browser, and requests reviewers.
+`cpr` creates a pull request in your preferred text editor, then opens the pull request in your preferred browser, and requests reviewers.
 The reviewers are parsed from the first line of the pull request description beginning with `Reviewer`
 
     Reviewer @wjmelements
