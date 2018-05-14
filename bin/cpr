@@ -123,3 +123,5 @@ then
     echo Setting assignees...
     set_assignees $ORIGIN $ISSUE_NUMBER "$REVIEWERS"
 fi
+
+rm -f $FORM $FORMN $OUT
