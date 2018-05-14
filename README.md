@@ -101,5 +101,7 @@ New scripts are appreciated.
 As a guideline, scripts should be long enough that they cannot be aliases.
 To contribute, please open a pull request against master.
 
+When developing for this repo, it is important not to develop on the master branch because `update-scripts` can create merge conflicts.
+
 # Bugs
 Please use Github Issues to report bugs for scripts in this repository.
