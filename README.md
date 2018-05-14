@@ -4,6 +4,7 @@ These are workflow scripts for Github productivity.
 * **cpr** - Create Pull Request
 * **rr** - Request Review
 * **rrr** - Re-request Review
+* **fork** - Fork and clone
 
 # Setup
 Create a new Github personal access token and give it `repo` permissions.
@@ -69,6 +70,16 @@ Otherwise, the script will query github for pull requests matching your current 
 
 ### -f
 Does not prompt to confirm when re-requesting review.
+
+## fork
+
+    fork <repository>
+
+`fork` simultaneously clones a repo and creates a remote fork for your user.
+
+    fork git@github.com:wjmelements/scripts.git
+
+The `origin` remote is set to your fork and the `upstream` remote is set to the source.
 
 # Configuration
 ## Text Editor
