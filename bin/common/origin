@@ -1,6 +1,9 @@
 #!/bin/bash
 
-ORIGIN_URL=$(git config --get remote.origin.url)
+if [ -z $ORIGIN_URL ]
+then
+    ORIGIN_URL=$(git config --get remote.origin.url)
+fi
 ORIGIN=$(echo $ORIGIN_URL | sed -Ene 's/^.*[:\/]([-a-zA-Z]*)\/([-a-zA-Z\._]*)$/\1\/\2/pg')
 if [ -z $ORIGIN ] || [[ "$ORIGIN" == *"Not a git repository"* ]]
 then

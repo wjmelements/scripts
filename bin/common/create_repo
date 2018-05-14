@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# $1 name ie scripts
+function create_repo {
+    CREATE_OUT=/tmp/create.out
+    curl -H "Authorization: token $(<$GITHUB_TOKEN)" \
+        --data "{ \"name\": $1 }" \
+        $GITHUB_API/user/repos \
+        2>/dev/null \
+        > $CREATE_OUT
+    CREATE_ERR=/tmp/create.err
+    cat $CREATE_OUT | jq -er .message > $CREATE_ERR \
+        && echo -n $ERROR_BEGIN$(<$(CREATE_ERR))$ERROR_END
+}
+
+# $1 repo ie Snapchat/appengine
+function create_fork {
+    CREATE_OUT=/tmp/create.out
+    curl -H "Authorization: token $(<$GITHUB_TOKEN)" \
+        $GITHUB_API/repos/$1/forks \
+        2>/dev/null \
+        > $CREATE_OUT
+    CREATE_ERR=/tmp/create.err
+    cat $CREATE_OUT | jq -er .message > $CREATE_ERR \
+        && echo -n $ERROR_BEGIN$(<$(CREATE_ERR))$ERROR_END
+}
