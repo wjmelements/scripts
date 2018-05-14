@@ -1,0 +1,33 @@
+#!/bin/bash
+
+source $(dirname $0)/common/init
+source $(dirname $0)/common/create_repo
+
+while getopts ':' flag; do
+    case "${flag}" in
+        *) error "Unexpected option ${flag}" ;;
+    esac
+done
+
+if [[ $# -ne 1 ]]
+then
+    error "Expecting exactly one argument"
+    exit 1
+fi
+
+ORIGIN_URL=$1
+source $(dirname $0)/common/origin
+source $(dirname $0)/common/github
+
+echo Creating your fork of $ORIGIN...
+create_fork $ORIGIN
+
+echo Success: $CREATED_HTML
+open $CREATED_HTML
+
+git clone --origin upstream $ORIGIN_URL
+
+echo Setting up remotes...
+REPO_NAME=$(echo $ORIGIN | sed -Ene 's/^([-a-zA-Z]*)\/([-a-zA-Z\._]*)/\2/pg')
+cd $REPO_NAME
+git remote add origin $CREATED_URL
