@@ -14,20 +14,20 @@ then
     error "Expecting exactly one argument"
     exit 1
 fi
-ORIGIN_URL=UPSTREAM=$1
+
+ORIGIN_URL=$1
 source $(dirname $0)/common/origin
 source $(dirname $0)/common/github
-REPO_NAME=$(echo $ORIGIN | sed -Ene 's/^([-a-zA-Z]*)\/([-a-zA-Z\._]*)/\2/pg')
 
+echo Creating your fork of $ORIGIN...
 create_fork $ORIGIN
-git clone --origin upstream $UPSTREAM
-GITHUB_USER=$(curl -H "Authorization: token $(<$GITHUB_TOKEN)"
-    $GITHUB_API/user
-    2>/dev/null
-    | jq -r .login
-)
 
+echo Success: $CREATED_HTML
+open $CREATED_HTML
+
+git clone --origin upstream $ORIGIN_URL
+
+echo Setting up remotes...
+REPO_NAME=$(echo $ORIGIN | sed -Ene 's/^([-a-zA-Z]*)\/([-a-zA-Z\._]*)/\2/pg')
 cd $REPO_NAME
-
-DOWNSTREAM=$GITHUB_USER/$REPO_NAME
-git remote add origin $DOWNSTREAM
+git remote add origin $CREATED_URL

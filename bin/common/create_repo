@@ -11,6 +11,8 @@ function create_repo {
     CREATE_ERR=/tmp/create.err
     cat $CREATE_OUT | jq -er .message > $CREATE_ERR \
         && echo -n $ERROR_BEGIN$(<$(CREATE_ERR))$ERROR_END
+    export CREATED_URL=$(cat $CREATE_OUT | jq -r .ssh_url)
+    export CREATED_HTML=$(cat $CREATE_OUT | jq -r .html_url)
 }
 
 # $1 repo ie Snapchat/appengine
@@ -18,9 +20,12 @@ function create_fork {
     CREATE_OUT=/tmp/create.out
     curl -H "Authorization: token $(<$GITHUB_TOKEN)" \
         $GITHUB_API/repos/$1/forks \
+        --data "{}" \
         2>/dev/null \
         > $CREATE_OUT
     CREATE_ERR=/tmp/create.err
     cat $CREATE_OUT | jq -er .message > $CREATE_ERR \
-        && echo -n $ERROR_BEGIN$(<$(CREATE_ERR))$ERROR_END
+        && echo -n $ERROR_BEGIN$(<$CREATE_ERR)$ERROR_END
+    export CREATED_URL=$(cat $CREATE_OUT | jq -r .ssh_url)
+    export CREATED_HTML=$(cat $CREATE_OUT | jq -r .html_url)
 }
