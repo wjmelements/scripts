@@ -8,16 +8,25 @@ source $(dirname $0)/common/set_assignees
 
 # TODO support trunk configuration
 TRUNK='master'
+BRANCH=$(git symbolic-ref --short -q HEAD)
+if [ "$BRANCH" = $TRUNK ]
+then
+    echo -e $ERROR_BEGIN"Current branch is $BRANCH, aborting."$ERROR_END
+    exit 1
+fi
 
 if [[ $# -eq 1 ]] && [[ $1 != -* ]]
 then
     # this supports the un-switched branch syntax
     BASE_BRANCH=$1
 else
-    UPSTREAM=$(git config --get remote.upstream.url)
+    UPSTREAM_URL=$(git config --get remote.upstream.url)
+    UPSTREAM=$(url_from_remote $UPSTREAM_URL)
     if [ ! -z $UPSTREAM ]
     then
-        BASE_BRANCH=$UPSTREAM:$TRUNK
+        BASE_BRANCH=$TRUNK
+        BRANCH=$ORIGIN:$BRANCH
+        ORIGIN=$UPSTREAM
     else
         BASE_BRANCH=$TRUNK
     fi
@@ -32,12 +41,6 @@ while getopts 'b:t:a' flag; do
     esac
 done
 
-BRANCH=$(git symbolic-ref --short -q HEAD)
-if [ "$BRANCH" = $TRUNK ]
-then
-    echo -e $ERROR_BEGIN"Current branch is $BRANCH, aborting."$ERROR_END
-    exit 1
-fi
 echo Preparing PR for $ORIGIN:$BRANCH against $BASE_BRANCH
 
 mkdir -p /tmp/$ORIGIN

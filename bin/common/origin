@@ -4,7 +4,13 @@ if [ -z $ORIGIN_URL ]
 then
     ORIGIN_URL=$(git config --get remote.origin.url)
 fi
-ORIGIN=$(echo $ORIGIN_URL | sed -Ene 's/^.*[:\/]([-a-zA-Z]*)\/([-a-zA-Z\._]*)$/\1\/\2/pg')
+
+# $1 remote
+function url_from_remote {
+    echo $1 | sed -Ene 's/^.*[:\/]([-a-zA-Z]*)\/([-a-zA-Z\._]*)$/\1\/\2/pg'
+}
+
+ORIGIN=$(url_from_remote $ORIGIN_URL)
 if [ -z $ORIGIN ] || [[ "$ORIGIN" == *"Not a git repository"* ]]
 then
     echo -e $ERROR_BEGIN"No remote url 'origin'. Are you in a git repo?"$ERROR_END
