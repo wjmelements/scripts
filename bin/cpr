@@ -3,6 +3,8 @@
 source $(dirname $0)/common/init
 source $(dirname $0)/common/origin
 source $(dirname $0)/common/github
+source $(dirname $0)/common/request_review
+source $(dirname $0)/common/set_assignees
 
 # Check arguments to see if base-branch and custom template is set
 # this is to support legacy users who are used to typing base branch without -b argument
@@ -107,32 +109,19 @@ ISSUE_NUMBER=$(echo $URL | sed -E 's/.*\/(\d*)//g')
 
 echo Setting reviewers...
 # set reviewers
-REVIEWERS=/tmp/$ORIGIN/cpra.out
 sed -E -i .bak -ne 's/\\nReviewers? (@\w*\s?)/\1/gp' $FORMN
 sed -E -i .bak -e 's/ @/","/g' $FORMN
 sed -E -i .bak -e 's/@/"/g' $FORMN
 sed -E -i .bak -e 's/$/"/g' $FORMN
-echo "{ \"reviewers\":[" | cat - $FORMN > $REVIEWERS
-echo "] }" >> $REVIEWERS
-curl -H "Authorization: token $(<$GITHUB_TOKEN)" \
-     -H "Accept: application/vnd.github.black-cat-preview+json" \
-     --data @$REVIEWERS $GITHUB_API/repos/$ORIGIN/pulls/$ISSUE_NUMBER/requested_reviewers > $OUT 2>/dev/null
-if [ $? -ne 0 ]
-then
-    echo -e $ERROR_BEGIN"Error setting reviewers."$ERROR_END
-    cat $OUT
-fi
+
+REVIEWERS="[ $(<$FORMN) ]"
+
+request_review $ORIGIN $ISSUE_NUMBER "$REVIEWERS"
+
 if [ ! -z "$SET_ASSIGNEES" ]
 then
     echo Setting assignees...
-    sed -i .bak -e 's/reviewers/assignees/' $REVIEWERS
-    curl -H "Authorization: token $(<$GITHUB_TOKEN)" \
-         --data @$REVIEWERS $GITHUB_API/repos/$ORIGIN/issues/$ISSUE_NUMBER/assignees > $OUT 2>/dev/null
-    if [ $? -ne 0 ]
-    then
-        echo -e $ERROR_BEGIN"Error setting assignees."$ERROR_END
-        cat $OUT
-    fi
+    set_assignees $ORIGIN $ISSUE_NUMBER "$REVIEWERS"
 fi
 
-rm -f $FORM $FORMN $OUT $REVIEWERS
+rm -f $FORM $FORMN $OUT
