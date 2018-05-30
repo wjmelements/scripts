@@ -21,6 +21,13 @@ fi
 GIT_SUFFIX=".git"
 ORIGIN=${ORIGIN%$GIT_SUFFIX}
 
-UPSTREAM_URL=$(git config --get remote.upstream.url)
+UPSTREAMFILE=$(git rev-parse --show-toplevel)/.git/info/upstream
+if [[ -s $UPSTREAMFILE ]];
+then
+    UPSTREAM_REMOTE=$(<$UPSTREAMFILE)
+else
+    UPSTREAM_REMOTE=upstream
+fi
+UPSTREAM_URL=$(git config --get remote.$UPSTREAM_REMOTE.url)
 UPSTREAM=$(url_from_remote $UPSTREAM_URL)
 UPSTREAM=${UPSTREAM%$GIT_SUFFIX}
