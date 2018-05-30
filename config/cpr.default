@@ -1,6 +1,6 @@
 {
 "title": "$TITLE",
-"head": "$BRANCH",
+"head": "$TIP_BRANCH",
 "base": "$BASE_BRANCH",
 "body": "
 #### Changes
