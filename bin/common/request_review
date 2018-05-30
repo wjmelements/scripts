@@ -5,14 +5,20 @@
 # $3 requestees
 function request_review {
     # need Accept header for beta github api
-    RR_OUT=/tmp/$ORIGIN/rr.out
+    mkdir -p /tmp/$1
+    RR_OUT=/tmp/$1/rr.out
     curl -H "Authorization: token $(<$GITHUB_TOKEN)" \
          -H "Accept: application/vnd.github.black-cat-preview+json" \
          --data "{ \"reviewers\": $3 }" \
         $GITHUB_API/repos/$1/pulls/$2/requested_reviewers 2>/dev/null >$RR_OUT
-    RR_ERR=/tmp/$ORIGIN/rr.err
+    RR_ERR=/tmp/$1/rr.err
+    RR_ERRS=/tmp/$1/rr.errs
     cat $RR_OUT | jq -er .message > $RR_ERR \
         && echo -n $ERROR_BEGIN\
         && cat $RR_ERR \
+        && echo -n $ERROR_END
+    cat $RR_OUT | jq -er .errors[] > $RR_ERRS \
+        && echo -n $ERROR_BEGIN\
+        && cat $RR_ERRS \
         && echo -n $ERROR_END
 }

@@ -20,3 +20,7 @@ fi
 # repos checked out over git protocol might have the .git suffix which we want to remove
 GIT_SUFFIX=".git"
 ORIGIN=${ORIGIN%$GIT_SUFFIX}
+
+UPSTREAM_URL=$(git config --get remote.upstream.url)
+UPSTREAM=$(url_from_remote $UPSTREAM_URL)
+UPSTREAM=${UPSTREAM%$GIT_SUFFIX}
