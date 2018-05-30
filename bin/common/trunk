@@ -1,0 +1,9 @@
+#!/bin/bash
+
+TRUNKFILE=$(git rev-parse --show-toplevel)/.git/info/trunk
+if [[ -s $TRUNKFILE ]];
+then
+    TRUNK=$(<$TRUNKFILE)
+else
+    TRUNK=master
+fi

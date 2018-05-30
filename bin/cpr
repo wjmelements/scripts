@@ -5,9 +5,8 @@ source $(dirname $0)/common/origin
 source $(dirname $0)/common/github
 source $(dirname $0)/common/request_review
 source $(dirname $0)/common/set_assignees
+source $(dirname $0)/common/trunk
 
-# TODO support trunk configuration
-TRUNK='master'
 BRANCH=$(git symbolic-ref --short -q HEAD)
 if [ "$BRANCH" = $TRUNK ]
 then
