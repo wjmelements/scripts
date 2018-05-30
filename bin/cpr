@@ -18,14 +18,16 @@ if [[ $# -eq 1 ]] && [[ $1 != -* ]]
 then
     # this supports the un-switched branch syntax
     BASE_BRANCH=$1
+    TIP_BRANCH=$BRANCH
 else
     if [ ! -z $UPSTREAM ]
     then
         BASE_BRANCH=$TRUNK
-        BRANCH=$ORIGIN:$BRANCH
+        TIP_BRANCH=$ORIGIN:$BRANCH
         ORIGIN=$UPSTREAM
     else
         BASE_BRANCH=$TRUNK
+        TIP_BRANCH=$BRANCH
     fi
 fi
 
@@ -38,7 +40,7 @@ while getopts 'b:t:a' flag; do
     esac
 done
 
-echo Preparing PR for $ORIGIN:$BRANCH against $BASE_BRANCH
+echo Preparing PR for $TIP_BRANCH against $BASE_BRANCH
 
 mkdir -p /tmp/$ORIGIN
 FORM=/tmp/$ORIGIN/cprb.out
