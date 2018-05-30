@@ -10,11 +10,13 @@ re='^[0-9]+$'
 if [[ $1 =~ $re ]];
 then
     PRS=$1
+    UPSTREAM_PRS=
     shift
 else
     BRANCH=$(git symbolic-ref --short -q HEAD)
     source $(dirname $0)/common/pr
     PRS=$(get_pr $ORIGIN)
+    UPSTREAM_PRS=$(get_upstream_pr $ORIGIN $UPSTREAM)
 fi
 
 USAGE="usage: rr [num] [reviewers...]"
@@ -24,11 +26,23 @@ then
     exit 1
 fi
 
-echo $ORIGIN#$PRS
-
 source $(dirname $0)/common/request_review
 reviewers=$(echo $@ | awk -v RS='' -v OFS='","' 'NF { $1 = $1; print "\"" $0 "\"" }')
-for pr in $PRS; do
-    echo "[$pr] Requesting $@"
-    request_review $ORIGIN $pr "[ $reviewers ]"
-done
+
+if [[ -n $PRS ]];
+then
+    echo $ORIGIN#$PRS
+    for pr in $PRS; do
+        echo "[$pr] Requesting $@"
+        request_review $ORIGIN $pr "[ $reviewers ]"
+    done
+fi
+
+if [[ -n $UPSTREAM_PRS ]];
+then
+    echo $UPSTREAM#$UPSTREAM_PRS
+    for pr in $UPSTREAM_PRS; do
+        echo "[$pr] Requesting $@"
+        request_review $UPSTREAM $pr "[ $reviewers ]"
+    done
+fi

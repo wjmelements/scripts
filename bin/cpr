@@ -20,8 +20,6 @@ then
     # this supports the un-switched branch syntax
     BASE_BRANCH=$1
 else
-    UPSTREAM_URL=$(git config --get remote.upstream.url)
-    UPSTREAM=$(url_from_remote $UPSTREAM_URL)
     if [ ! -z $UPSTREAM ]
     then
         BASE_BRANCH=$TRUNK

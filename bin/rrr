@@ -20,13 +20,15 @@ then
     BRANCH=$(git symbolic-ref --short -q HEAD)
     source $(dirname $0)/common/pr
     PRS=$(get_pr $ORIGIN)
-    if [[ -z "$PRS" ]]
+    UPSTREAM_PRS=$(get_upstream_pr $ORIGIN $UPSTREAM)
+    if [[ -z "$PRS$UPSTREAM_PRS" ]]
     then
         echo $USAGE
         error "No existing pull requests for $ORIGIN:$BRANCH"
     fi
 else
     PRS=$*
+    UPSTREAM_PRS=
 fi
 
 # $1 - repo to list events for e.g. Snapchat/appengine
@@ -61,6 +63,11 @@ source $(dirname $0)/common/request_review
 # $2 issue number
 # $3 reviewers to request
 function request_reviews {
+    if [[ -z $3 ]];
+    then
+        error "No prior reviewers for #$2"
+        return
+    fi
     for reviewer in $3; do
         if [ -z ${FORCE+x} ]
         then
@@ -80,8 +87,19 @@ function request_reviews {
     done
 }
 
-echo $ORIGIN#$PRS
-for PR in $PRS; do
-    reviewers=$(list_reviewers $ORIGIN $PR | uniq)
-    request_reviews $ORIGIN $PR "$reviewers"
-done
+if [[ -n $PRS ]];
+then
+    echo $ORIGIN#$PRS
+    for PR in $PRS; do
+        reviewers=$(list_reviewers $ORIGIN $PR | uniq)
+        request_reviews $ORIGIN $PR "$reviewers"
+    done
+fi
+if [[ -n $UPSTREAM_PRS ]];
+then
+    echo $UPSTREAM#$UPSTREAM_PRS
+    for PR in $UPSTREAM_PRS; do
+        reviewers=$(list_reviewers $UPSTREAM $PR | uniq)
+        request_reviews $UPSTREAM $PR "$reviewers"
+    done
+fi
