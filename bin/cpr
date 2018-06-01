@@ -23,7 +23,7 @@ else
     if [ ! -z $UPSTREAM ]
     then
         BASE_BRANCH=$TRUNK
-        TIP_BRANCH=$ORIGIN:$BRANCH
+        TIP_BRANCH=${ORIGIN%/*}:$BRANCH
         ORIGIN=$UPSTREAM
     else
         BASE_BRANCH=$TRUNK
