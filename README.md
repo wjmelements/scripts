@@ -94,7 +94,7 @@ You can add custom pull request templates, placing them in `config`.
 See the documentation for
 
 ## Github Enterprise or Bitbucket
-To add support alternative remote repositories, modify `bin/common/github`.
+To add support for alternative remote repositories, modify `bin/common/github`.
 
 # Contributing
 New scripts are appreciated.
