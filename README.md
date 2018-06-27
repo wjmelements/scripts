@@ -18,7 +18,11 @@ Next, clone this repository.
 
 Install the dependency `jq`. On Mac you can do this with Homebrew.
 
+    # Mac
     brew install jq
+    # Debian/Ubuntu
+    sudo apt-get update
+    sudo apt-get install jq
 
 Finally, add `/path/to/scripts/bin` to your `$PATH`.
 
