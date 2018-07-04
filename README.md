@@ -103,6 +103,15 @@ See the documentation [here](#specify-template--t).
 ## Github Enterprise or Bitbucket
 To add support for alternative remote repositories, modify `bin/common/github`.
 
+## Turn off automatic updates
+These scripts update automatically in the background each time you run one of them.
+To turn off automatic updates, you simply need to leave the master branch.
+
+    cd /path/to/scripts
+    git checkout -b freeze
+
+To turn them back on, `git checkout master`.
+
 # Contributing
 New scripts are appreciated.
 As a guideline, scripts should be long enough that they cannot be aliases.
