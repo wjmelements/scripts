@@ -45,11 +45,13 @@ Using this option also sets the reviewers as assignees.
 
 ### Set Base Branch (-b)
 This option configures the branch your pull request will compare against.
-If you do not set this, it will default to master but you can still configure it when setting up your pull request.
+If you do not set this, it will default to the value in `.git/info/trunk` else master but you can still configure it when setting up your pull request.
 If no other options are used, you can specify target branch without `-b`.
 
     cpr -b release
     cpr release
+    # set default pull request target to 'develop'
+    echo develop > $(git rev-parse --show-toplevel)/.git/info/trunk
 
 ### Specify Template (-t)
 This option configures the pull request template.
@@ -70,6 +72,7 @@ Otherwise, the script will query github for pull requests matching your current 
     rr wjmelements
     rr 121 wjmelements
     rrr 120 123
+    # forgot the pr numbers?
     rrr
 
 ### -f
@@ -95,7 +98,7 @@ Set your `EDITOR` in your `~/.bashrc`, else it will default to `nano`.
 
 ## Pull Request Templates
 You can add custom pull request templates, placing them in `config`.
-See the documentation for
+See the documentation [here](#specify-template--t).
 
 ## Github Enterprise or Bitbucket
 To add support for alternative remote repositories, modify `bin/common/github`.
