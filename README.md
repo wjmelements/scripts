@@ -108,11 +108,12 @@ These scripts update automatically in the background each time you run one of th
 To turn off automatic updates, you simply need to leave the master branch.
 
     cd /path/to/scripts
+    # Turn off automatic updates
     git checkout -b freeze
     # You can still pull updates manually
     git pull origin master
-
-To turn them back on, `git checkout master`.
+    # Turn automatic updates back on
+    git checkout master
 
 # Contributing
 New scripts are appreciated.
