@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Can support Github Enterprise or other repos
+ghe_re='github.sc-corp.net'
+if [[ $ORIGIN_URL =~ $ghe_re ]];
+then
+    # Snapchat GHE
+    GITHUB_TOKEN=~/.github.sc
+    GITHUB_API=https://github.sc-corp.net/api/v3
+    GITHUB_ROOT=https://github.sc-corp.net
+else
+    # Github
+    GITHUB_TOKEN=~/.github
+    GITHUB_API=https://api.github.com
+    GITHUB_ROOT=https://github.com
+fi

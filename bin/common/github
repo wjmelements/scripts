@@ -1,17 +1,7 @@
 #!/bin/bash
 
-# Can support Github Enterprise or other repos
-ghe_re='github.sc-corp.net'
-if [[ $ORIGIN_URL =~ $ghe_re ]];
-then
-    # Snapchat GHE
-    GITHUB_TOKEN=~/.github.sc
-    GITHUB_API=https://github.sc-corp.net/api/v3
-else
-    # Github
-    GITHUB_TOKEN=~/.github
-    GITHUB_API=https://api.github.com
-fi
+source $(dirname $0)/common/github_origin
+
 if [ ! -s $GITHUB_TOKEN ]
 then
     echo -e $ERROR_BEGIN"Could not find personal access token at $GITHUB_TOKEN"$ERROR_END

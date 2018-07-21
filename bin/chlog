@@ -1,0 +1,35 @@
+#!/bin/bash
+
+source $(dirname $0)/common/init
+source $(dirname $0)/common/origin
+source $(dirname $0)/common/github_origin
+source $(dirname $0)/common/trunk
+source $(dirname $0)/common/pr_num
+
+BASE_REF=$1
+
+if [ -z $1 ]
+then
+    error "Usage: chlog <ref>"
+fi
+
+if [ -z $UPSTREAM ]
+then
+    TARGET_ORIGIN=$ORIGIN
+else
+    TARGET_ORIGIN=$UPSTREAM
+fi
+
+GIT_LOG=$(git log $BASE_REF..HEAD)
+
+PR_NUMS=$(echo "$GIT_LOG" | grep "Merge pull request" | cut -d " " -f 8 | cut -c 2-)
+PR_TITLES=$(echo "$GIT_LOG"| grep -A 2 "Merge pull request" | grep -v "Merge pull request" | grep -v "\--$" | awk 'NF' | cut -c 5-)
+
+for pr_num in $PR_NUMS;
+do
+    URL=$GITHUB_ROOT/$TARGET_ORIGIN/pull/$pr_num
+    TITLE=$(echo "$PR_TITLES" | head -n 1)
+    PR_TITLES=$(echo "$PR_TITLES" | tail -n +2)
+    echo "- [#$pr_num]($URL): $TITLE"
+done
+

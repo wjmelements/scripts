@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# $1 - home repo to check e.g. Metamask/metamask-extension
+# $2 - pr number
+function get_pr_by_num {
+    curl -H "Authorization: token $(<$GITHUB_TOKEN)" \
+        $GITHUB_API/repos/$1/pulls/$2
+}
