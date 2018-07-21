@@ -1,6 +1,7 @@
 # scripts
 These are workflow scripts for Github productivity.
 
+* **chlog** - Create changelog
 * **cpr** - Create Pull Request
 * **rr** - Request Review
 * **rrr** - Re-request Review
@@ -30,6 +31,12 @@ Finally, add `/path/to/scripts/bin` to your `$PATH`.
     source ~/.bashrc
 
 # Manual
+## chlog
+
+    chlog <startref>
+
+`chlog` creates a markdown changelog from the specified git ref to HEAD.
+
 ## cpr
 
     cpr [-a] [-b base_branch] [-t template]
