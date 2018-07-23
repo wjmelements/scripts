@@ -8,8 +8,9 @@ source $(dirname $0)/common/pr_num
 source $(dirname $0)/common/chlog
 
 OPTIND=1
-while getopts 'uv:' flag; do
+while getopts 'iuv:' flag; do
     case "${flag}" in
+        i) INPLACE=yes ;;
         u) UPDATE=yes ;;
         v) VERSION=${OPTARG} ;;
         *) error "Unexpected option ${flag}" ;;
@@ -23,6 +24,13 @@ then
 fi
 BASE_REF=$1
 
+if [ -n "$INPLACE" ]
+then
+    mv $CHLOG $CHLOG.bak
+    CHLOGOUT=$CHLOG
+    CHLOG=$CHLOG.bak
+    exec > $CHLOGOUT
+fi
 
 if [ -n "$UPDATE" ]
 then
@@ -59,4 +67,9 @@ if [ -n "$UPDATE" ]
 then
     echo
     awk '/##/{++n} n' $CHLOG
+fi
+
+if [ -n "$INPLACE" ]
+then
+    rm $CHLOG
 fi
