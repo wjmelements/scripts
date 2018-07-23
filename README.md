@@ -33,7 +33,7 @@ Finally, add `/path/to/scripts/bin` to your `$PATH`.
 # Manual
 ## chlog
 
-    chlog [-u] [-v version] <startref>
+    chlog [-u] [-i] [-v version] <startref>
 
 `chlog` creates a markdown changelog from the specified git ref to HEAD.
 Refs can be branches, tags, or commits.
@@ -50,10 +50,12 @@ Specifies new version number.
     - [#4813](https://github.com/MetaMask/metamask-extension/pull/4813): Do not inject on blueskybooking.com
 ```
 
-### Update [-u]
+### Update [-u,-i]
 
     # output updated CHANGLELOG.md
-    chlog -u -v 4.8.1 v4.8.0
+    chlog -uv 4.8.1 v4.8.0
+    # write updated CHANGLELOG.md
+    chlog -iuv 4.8.1 v4.8.0
 
 ## cpr
 
