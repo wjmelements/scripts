@@ -5,12 +5,34 @@ source $(dirname $0)/common/origin
 source $(dirname $0)/common/github_origin
 source $(dirname $0)/common/trunk
 source $(dirname $0)/common/pr_num
+source $(dirname $0)/common/chlog
 
+OPTIND=1
+while getopts 'uv:' flag; do
+    case "${flag}" in
+        u) UPDATE=yes ;;
+        v) VERSION=${OPTARG} ;;
+        *) error "Unexpected option ${flag}" ;;
+    esac
+done
+shift $(($OPTIND-1))
+
+if [ -z $* ]
+then
+    error "Usage: chlog [-v <version>] [-u] <ref>"
+fi
 BASE_REF=$1
 
-if [ -z $1 ]
+
+if [ -n "$UPDATE" ]
 then
-    error "Usage: chlog <ref>"
+    sed -n '/##/!p;//q' $CHLOG
+fi
+
+if [ -n "$VERSION" ]
+then
+    echo '##' "$VERSION" $(date '+%a %b %d %Y')
+    echo
 fi
 
 if [ -z $UPSTREAM ]
@@ -33,3 +55,8 @@ do
     echo "- [#$pr_num]($URL): $TITLE"
 done
 
+if [ -n "$UPDATE" ]
+then
+    echo
+    awk '/##/{++n} n' $CHLOG
+fi

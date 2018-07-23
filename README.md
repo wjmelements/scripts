@@ -33,9 +33,27 @@ Finally, add `/path/to/scripts/bin` to your `$PATH`.
 # Manual
 ## chlog
 
-    chlog <startref>
+    chlog [-u] [-v version] <startref>
 
 `chlog` creates a markdown changelog from the specified git ref to HEAD.
+Refs can be branches, tags, or commits.
+
+### Version [-v]
+
+Specifies new version number.
+
+    chlog -v 4.8.1 6d04c80302736133b0e741aa51719d0802cd8a2f
+
+```markdown
+    ## 4.8.1 Sun Jul 22 2018
+
+    - [#4813](https://github.com/MetaMask/metamask-extension/pull/4813): Do not inject on blueskybooking.com
+```
+
+### Update [-u]
+
+    # output updated CHANGLELOG.md
+    chlog -u -v 4.8.1 v4.8.0
 
 ## cpr
 
