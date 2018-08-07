@@ -2,12 +2,18 @@
 
 # Can support Github Enterprise or other repos
 ghe_re='github.sc-corp.net'
+gitlab_re='gitlab.com'
 if [[ $ORIGIN_URL =~ $ghe_re ]];
 then
     # Snapchat GHE
     GITHUB_TOKEN=~/.github.sc
     GITHUB_API=https://github.sc-corp.net/api/v3
     GITHUB_ROOT=https://github.sc-corp.net
+elif [[ $ORIGIN_URL =~ $gitlab_re ]]
+then
+    GITHUB_TOKEN=~/.gitlab
+    GITHUB_API=https://gitlab.com/api/v4
+    GITHUB_ROOT=https://gitlab.com
 else
     # Github
     GITHUB_TOKEN=~/.github
