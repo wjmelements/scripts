@@ -128,7 +128,7 @@ You can add custom pull request templates, placing them in `config`.
 See the documentation [here](#specify-template--t).
 
 ## Github Enterprise or Bitbucket
-To add support for alternative remote repositories, modify `bin/common/github`.
+To add support for alternative remote repositories, modify `bin/common/github_origin`.
 
 ## Turn off automatic updates
 These scripts update automatically in the background each time you run one of them.
