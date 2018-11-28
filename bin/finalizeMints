@@ -15,10 +15,11 @@ else
     PRIOR=5198576 
 fi
 
-while getopts 'a' flag; do
+while getopts 'asg' flag; do
     case "${flag}" in
         a) PRIOR=5198576 ;;
         s) PRIOR="${OPTARG}" ;;
+        g) FORMAT=sheet ;;
         *) error "Unexpected option ${flag}" ;;
     esac
 done
@@ -27,7 +28,7 @@ END=$(web3 "web3.eth.getBlockNumber()")
 
 echo Checking from $PRIOR to $END inclusive
 
-PASTE=$(node $(dirname $0)/js/fetchMintEvents.js $PRIOR $END)
+PASTE=$(node $(dirname $0)/js/fetchMintEvents.js $PRIOR $END $FORMAT)
 if [ -n "$PASTE" ]
 then
     echo "$PASTE" | pbcopy

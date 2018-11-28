@@ -13,9 +13,25 @@ const Controller = new web3.eth.Contract(ControllerAbi, ControllerAddress);
 
 const fromBlock = process.argv[2];
 const toBlock = process.argv[3];
+const format = process.argv[4];
+
+function formatRowSheet({event}) {
+    return '=SPLIT("' + event.transactionHash + ',' + event.returnValues._to + ',\'' + event.returnValues.amount + ',' + event.blockNumber + '", ",")'
+}
+
+function formatRowEvent({event}) {
+    return 'MintOperationEvent(' + event.returnValues._to + ',' + event.returnValues.amount + ',' + event.returnValues.deferBlock + ',' + event.returnValues.opIndex + ')';
+}
+
+let formatRow;
+if (format == 'sheet') {
+    formatRow = formatRowSheet;
+} else {
+    formatRow = formatRowEvent;
+}
 
 Controller.getPastEvents('MintOperationEvent', { fromBlock, toBlock }).then((events) => {
     events.forEach((event) => {
-        console.log('=SPLIT("' + event.transactionHash + ',' + event.returnValues._to + ',\'' + event.returnValues.amount + ',' + event.blockNumber + '", ",")');
+        console.log(formatRow({event}));
     });
 }).catch(console.error);

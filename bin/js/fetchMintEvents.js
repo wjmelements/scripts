@@ -14,13 +14,25 @@ const Controller = new web3.eth.Contract(ControllerAbi, ControllerAddress);
 
 const fromBlock = process.argv[2];
 const toBlock = process.argv[3];
+const format = process.argv[4];
 
 abiDecoder.addABI(ControllerAbi);
 
-function formatRow({ event, transaction }) {
+function formatRowSheet({ event, transaction }) {
     const decodedTransaction = abiDecoder.decodeMethod(transaction.input);
     const mintIndex = decodedTransaction.params[0].value;
     return '=SPLIT("' + event.transactionHash + ',' + event.returnValues.to + ',\'' + event.returnValues.amount + ',' + event.blockNumber + ',' + mintIndex + '", ",")';
+}
+
+function formatRowEvent({ event, transaction }) {
+    return 'Mint(' + event.returnValues.to + ',' + event.returnValues.amount + ')';
+}
+
+let formatRow;
+if (format == 'sheet') {
+    formatRow = formatRowSheet;
+} else {
+    formatRow = formatRowEvent;
 }
 
 async function processEvent(event) {
