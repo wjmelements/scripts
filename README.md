@@ -137,7 +137,7 @@ The eval context also can reference TrueUSD and its Controller objects.
 
 ## requestMints
 
-    requestMints [-a] [-s]
+    requestMints [-a] [-g]
 
 The script lists recent MintOperationEvent events in the TrueUSD Controller.
 The events are copied into your pasteboard.
@@ -150,7 +150,7 @@ Formats the event data for pasting into a spreadsheet.
 
 ## finalizeMints
 
-    finalizeMints [-a] [--sheet]
+    finalizeMints [-a] [-g]
 
 The script lists recent Mint events in TrueUSD.
 The events are copied into your pasteboard.
