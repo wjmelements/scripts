@@ -6,7 +6,12 @@ These are workflow scripts for Github productivity.
 * **rr** - Request Review
 * **rrr** - Re-request Review
 * **fork** - Fork and clone
+
+These are Ethereum utility scripts for TrustToken.
+
 * **web3** - Evaluate web3
+* **requestMints** - List recent TrueUSD MintOperationEvents
+* **finalizeMint** - List recent TrueUSD Mint events
 
 # Setup
 Create a new Github personal access token and give it `repo` permissions.
@@ -120,6 +125,41 @@ Does not prompt to confirm when re-requesting review.
     fork git@github.com:wjmelements/scripts.git
 
 The `origin` remote is set to your fork and the `upstream` remote is set to the source.
+
+## web3
+
+    web3 <javascript>
+
+`web3` runs javascript in an environment that sources [web3js](https://web3js.readthedocs.io/en/1.0/index.html).
+The eval context also can reference TrueUSD and its Controller objects.
+
+    web3 "TrueUSD.methods.totalSupply().call()"
+
+## requestMints
+
+    requestMints [-a] [-g]
+
+The script lists recent MintOperationEvent events in the TrueUSD Controller.
+The events are copied into your pasteboard.
+
+### -a
+Instead of listing recent events, list all events.
+
+### -g
+Formats the event data for pasting into a spreadsheet.
+
+## finalizeMints
+
+    finalizeMints [-a] [-g]
+
+The script lists recent Mint events in TrueUSD.
+The events are copied into your pasteboard.
+
+### -a
+Instead of listing recent events, list all events.
+
+### -g
+Formats the event data for pasting into a spreadsheet.
 
 # Configuration
 ## Text Editor

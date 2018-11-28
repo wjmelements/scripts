@@ -1,0 +1,41 @@
+#!/bin/bash
+
+ERROR_BEGIN="`tput bold; tput setaf 1`"
+ERROR_END="`tput sgr0`"
+function error {
+    echo "$ERROR_BEGIN""$*""$ERROR_END">&2
+    exit 1
+}
+
+PRIORFILE=~/.lastmintblock.finalize
+if [[ -s $PRIORFILE ]];
+then
+    PRIOR=$(<$PRIORFILE)
+else
+    PRIOR=5198576 
+fi
+
+while getopts 'asg' flag; do
+    case "${flag}" in
+        a) PRIOR=5198576 ;;
+        s) PRIOR="${OPTARG}" ;;
+        g) FORMAT=sheet ;;
+        *) error "Unexpected option ${flag}" ;;
+    esac
+done
+
+END=$(web3 "web3.eth.getBlockNumber()")
+
+echo Checking from $PRIOR to $END inclusive
+
+PASTE=$(node $(dirname $0)/js/fetchMintEvents.js $PRIOR $END $FORMAT)
+if [ -n "$PASTE" ]
+then
+    echo "$PASTE" | pbcopy
+    echo "$PASTE"
+    echo "(copied to clipboard)"
+else
+    echo No new finalizeMint events
+fi
+
+echo $(( $END + 1 )) > $PRIORFILE
