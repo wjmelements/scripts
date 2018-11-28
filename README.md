@@ -6,6 +6,7 @@ These are workflow scripts for Github productivity.
 * **rr** - Request Review
 * **rrr** - Re-request Review
 * **fork** - Fork and clone
+* **web3** - Evaluate web3
 
 # Setup
 Create a new Github personal access token and give it `repo` permissions.
@@ -16,6 +17,11 @@ Paste your token into `~/.github` with:
 Next, clone this repository.
 
     git clone git@github.com:wjmelements/scripts.git
+
+Install [nodejs](https://nodejs.org/en/) and dependencies.
+
+    cd scripts
+    npm install
 
 Install the dependency `jq`. On Mac you can do this with Homebrew.
 
