@@ -21,7 +21,8 @@ abiDecoder.addABI(ControllerAbi);
 function formatRowSheet({ event, transaction }) {
     const decodedTransaction = abiDecoder.decodeMethod(transaction.input);
     const mintIndex = decodedTransaction.params[0].value;
-    return '=SPLIT("' + event.transactionHash + ',' + event.returnValues.to + ',\'' + event.returnValues.amount + ',' + event.blockNumber + ',' + mintIndex + '", ",")';
+    const amount = (event.returnValues.amount / 10 ** 18).toFixed(2);
+    return '=SPLIT("' + event.transactionHash + ',' + event.returnValues.to + ',\'' + amount + ',' + event.blockNumber + ',' + mintIndex + '", ",")';
 }
 
 function formatRowEvent({ event, transaction }) {
