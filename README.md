@@ -148,6 +148,9 @@ Instead of listing recent events, list all events.
 ### -g
 Formats the event data for pasting into a spreadsheet.
 
+### -s start\_block
+Specify starting block
+
 ## finalizeMints
 
     finalizeMints [-a] [-g] [-s start_block]
@@ -160,6 +163,9 @@ Instead of listing recent events, list all events.
 
 ### -g
 Formats the event data for pasting into a spreadsheet.
+
+### -s start\_block
+Specify starting block
 
 # Configuration
 ## Text Editor
