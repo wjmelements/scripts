@@ -6,7 +6,6 @@ These are workflow scripts for Github productivity.
 * **rr** - Request Review
 * **rrr** - Re-request Review
 * **fork** - Fork and clone
-* **web3** - Evaluate web3
 
 These are Ethereum utility scripts for TrustToken.
 
