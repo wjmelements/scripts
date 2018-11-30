@@ -22,7 +22,7 @@ function formatRowSheet({ event, transaction }) {
     const decodedTransaction = abiDecoder.decodeMethod(transaction.input);
     const mintIndex = decodedTransaction.params[0].value;
     const amount = (event.returnValues.amount / 10 ** 18).toFixed(2);
-    return '=SPLIT("' + event.transactionHash + ',' + event.returnValues.to + ',\'' + amount + ',' + event.blockNumber + ',' + mintIndex + '", ",")';
+    return '=SPLIT("' + event.transactionHash + ',' + event.returnValues.to + ',' + amount + ',' + event.blockNumber + ',' + mintIndex + '", ",")';
 }
 
 function formatRowEvent({ event, transaction }) {
