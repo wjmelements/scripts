@@ -15,7 +15,7 @@ else
     PRIOR=5198576 
 fi
 
-while getopts 'asg' flag; do
+while getopts 'as:g' flag; do
     case "${flag}" in
         a) PRIOR=5198576 ;;
         s) PRIOR="${OPTARG}" ;;
