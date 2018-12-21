@@ -1,6 +1,6 @@
 const Web3 = require('web3');
 
-const providerUrl = 'https://mainnet.infura.io/metamask';
+const providerUrl = 'https://mainnet.infura.io/';
 const web3 = new Web3(new Web3.providers.HttpProvider(providerUrl));
 const abiDecoder = require('abi-decoder');
 
