@@ -8,7 +8,7 @@ const TrueUSDAbi = require('../abi/trueUsdAbi.json').abi
 const TrueUSD = new web3.eth.Contract(TrueUSDAbi, TrueUSDAddress)
 
 const ControllerAddress = '0x0000000000075EfBeE23fe2de1bd0b7690883cc9';
-const ControllerAbi = require('../abi/controllerAbi.json').abi
+const ControllerAbi = require('../abi/controllerAbi.json');
 const Controller = new web3.eth.Contract(ControllerAbi, ControllerAddress);
 
 let result = eval(process.argv[2])
