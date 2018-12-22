@@ -6,6 +6,7 @@ BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
 if [ "$BRANCH" == "master" ]
 then
     git pull origin master
+    npm install
 else
     echo skipping because branch is $BRANCH
 fi

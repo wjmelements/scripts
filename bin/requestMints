@@ -28,7 +28,7 @@ END=$(web3 "web3.eth.getBlockNumber()")
 
 echo Checking from $PRIOR to $END inclusive
 
-PASTE=$(node $(dirname $0)/js/fetchMintOperationEvents $PRIOR $END $FORMAT)
+PASTE=$(node $(dirname $0)/js/fetchRequestMintEvents $PRIOR $END $FORMAT)
 if [ -n "$PASTE" ]
 then
     echo "$PASTE" | pbcopy

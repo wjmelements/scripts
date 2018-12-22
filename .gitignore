@@ -1,2 +1,7 @@
 *.swo
 *.swp
+cpr.custom
+
+# node
+node_modules
+package-lock.json

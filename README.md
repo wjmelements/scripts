@@ -10,7 +10,7 @@ These are workflow scripts for Github productivity.
 These are Ethereum utility scripts for TrustToken.
 
 * **web3** - Evaluate web3
-* **requestMints** - List recent TrueUSD MintOperationEvents
+* **requestMints** - List recent TrueUSD RequestMint Events
 * **finalizeMint** - List recent TrueUSD Mint events
 
 # Setup
@@ -139,7 +139,7 @@ The eval context also can reference TrueUSD and its Controller objects.
 
     requestMints [-a] [-g] [-s start_block]
 
-The script lists recent MintOperationEvent events in the TrueUSD Controller.
+The script lists recent RequestMint Event events in the TrueUSD Controller.
 The events are copied into your pasteboard.
 
 ### -a
