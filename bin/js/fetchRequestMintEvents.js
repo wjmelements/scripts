@@ -48,6 +48,7 @@ req.onreadystatechange = () => {
     for (let result of results) {
       const event = {
         ...result,
+        blockNumber: web3.utils.hexToNumberString(result.blockNumber),
         returnValues: {
           opIndex: web3.utils.hexToNumberString(result.data.slice(0, 66)),
           to: '0x' + result.topics[1].slice(26),
