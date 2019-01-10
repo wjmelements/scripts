@@ -4,7 +4,7 @@ const providerUrl = 'https://mainnet.infura.io/';
 const web3 = new Web3(new Web3.providers.HttpProvider(providerUrl));
 const abiDecoder = require('abi-decoder');
 
-const TrueUSDAddress = '0x8dd5fbCe2F6a956C3022bA3663759011Dd51e73E';
+const TrueUSDAddress = '0x0000000000085d4780B73119b644AE5ecd22b376';
 const TrueUSDAbi = require('../abi/trueUsdAbi.json').abi;
 const TrueUSD = new web3.eth.Contract(TrueUSDAbi, TrueUSDAddress);
 
