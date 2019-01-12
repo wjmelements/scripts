@@ -18,7 +18,7 @@ const format = process.argv[4];
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 function formatRowSheet({event}) {
-    return '=SPLIT("' + event.transactionHash + ',' + event.returnValues.to + ',\'' + event.returnValues.value + ',' + event.blockNumber + '", ",")'
+    return '=SPLIT("' + event.returnValues.opIndex + ',' + event.transactionHash + ',' + event.returnValues.to + ',\'' + event.returnValues.value + ',' + event.blockNumber + '", ",")'
 }
 
 function formatRowEvent({event}) {
