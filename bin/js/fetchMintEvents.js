@@ -5,7 +5,7 @@ const web3 = new Web3(new Web3.providers.HttpProvider(providerUrl));
 const abiDecoder = require('abi-decoder');
 
 const TrueUSDAddress = '0x0000000000085d4780B73119b644AE5ecd22b376';
-const TrueUSDAbi = require('../abi/trueUsdAbi.json').abi;
+const TrueUSDAbi = require('../abi/trueUsdAbi.json');
 const TrueUSD = new web3.eth.Contract(TrueUSDAbi, TrueUSDAddress);
 
 const ControllerAddress = '0x0000000000075EfBeE23fe2de1bd0b7690883cc9';

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#node $(dirname $0)/js/evalWeb3.js "TrueUSD.methods.remainingGasRefundPool().call()"
+node $(dirname $0)/js/refundPool.js
