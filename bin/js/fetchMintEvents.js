@@ -1,4 +1,5 @@
 const Web3 = require('web3');
+const math = require('mathjs');
 
 const providerUrl = 'https://mainnet.infura.io/';
 const web3 = new Web3(new Web3.providers.HttpProvider(providerUrl));
@@ -21,12 +22,12 @@ abiDecoder.addABI(ControllerAbi);
 function formatRowSheet({ event, transaction }) {
     const decodedTransaction = abiDecoder.decodeMethod(transaction.input);
     const mintIndex = decodedTransaction.params[0].value;
-    const amount = (event.returnValues.amount / 10 ** 18).toFixed(2);
-    return '=SPLIT("' + event.transactionHash + ',' + event.returnValues.to + ',' + amount + ',' + event.blockNumber + ',' + mintIndex + '", ",")';
+    const value = math.divide(event.returnValues.value, 10 ** 18).toFixed(2);
+    return '=SPLIT("' + event.transactionHash + ',' + event.returnValues.to + ',' + value + ',' + event.blockNumber + ',' + mintIndex + '", ",")';
 }
 
 function formatRowEvent({ event, transaction }) {
-    return 'Mint(' + event.returnValues.to + ',' + event.returnValues.amount + ')';
+    return 'Mint(' + event.returnValues.to + ',' + event.returnValues.value + ')';
 }
 
 let formatRow;
