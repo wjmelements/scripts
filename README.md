@@ -12,6 +12,7 @@ These are Ethereum utility scripts for TrustToken.
 * **web3** - Evaluate web3
 * **requestMints** - List recent TrueUSD RequestMint Events
 * **finalizeMint** - List recent TrueUSD Mint events
+* **refundPool** - Show count of sponsored transactions
 
 # Setup
 Create a new Github personal access token and give it `repo` permissions.
@@ -166,6 +167,12 @@ Formats the event data for pasting into a spreadsheet.
 
 ### -s start\_block
 Specify starting block
+
+## refundPool
+
+    refundPool
+
+This script shows the current size of the refund pool for TrueUSD in transactions.
 
 # Configuration
 ## Text Editor

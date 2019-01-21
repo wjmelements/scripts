@@ -259,7 +259,7 @@
   {
     "constant": true,
     "inputs": [],
-    "name": "mintReqInValidBeforeThisBlock",
+    "name": "mintReqInvalidBeforeThisBlock",
     "outputs": [
       {
         "name": "",
@@ -350,6 +350,20 @@
   {
     "constant": true,
     "inputs": [],
+    "name": "PAUSED_IMPLEMENTATION",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
     "name": "IS_REDEMPTION_ADMIN",
     "outputs": [
       {
@@ -406,7 +420,7 @@
         "type": "address"
       }
     ],
-    "name": "newOwnerPending",
+    "name": "NewOwnerPending",
     "type": "event"
   },
   {
@@ -464,12 +478,6 @@
   },
   {
     "anonymous": false,
-    "inputs": [],
-    "name": "TrueUsdInitialized",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
     "inputs": [
       {
         "indexed": true,
@@ -482,7 +490,7 @@
         "type": "uint256"
       },
       {
-        "indexed": true,
+        "indexed": false,
         "name": "opIndex",
         "type": "uint256"
       },
@@ -509,7 +517,7 @@
         "type": "uint256"
       },
       {
-        "indexed": true,
+        "indexed": false,
         "name": "opIndex",
         "type": "uint256"
       },
@@ -1088,20 +1096,6 @@
     "constant": false,
     "inputs": [
       {
-        "name": "_totalSupply",
-        "type": "uint256"
-      }
-    ],
-    "name": "initializeTrueUSD",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
         "name": "_registry",
         "type": "address"
       }
@@ -1239,20 +1233,6 @@
     "constant": false,
     "inputs": [
       {
-        "name": "_newGlobalPause",
-        "type": "address"
-      }
-    ],
-    "name": "setGlobalPause",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
         "name": "_newFastPause",
         "type": "address"
       }
@@ -1267,15 +1247,6 @@
     "constant": false,
     "inputs": [],
     "name": "pauseTrueUSD",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [],
-    "name": "unpauseTrueUSD",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",

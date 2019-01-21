@@ -1,11 +1,12 @@
 const Web3 = require('web3');
+const math = require('mathjs');
 
 const providerUrl = 'https://mainnet.infura.io/';
 const web3 = new Web3(new Web3.providers.HttpProvider(providerUrl));
 const abiDecoder = require('abi-decoder');
 
 const TrueUSDAddress = '0x0000000000085d4780B73119b644AE5ecd22b376';
-const TrueUSDAbi = require('../abi/trueUsdAbi.json').abi;
+const TrueUSDAbi = require('../abi/trueUsdAbi.json');
 const TrueUSD = new web3.eth.Contract(TrueUSDAbi, TrueUSDAddress);
 
 const ControllerAddress = '0x0000000000075EfBeE23fe2de1bd0b7690883cc9';
@@ -21,12 +22,12 @@ abiDecoder.addABI(ControllerAbi);
 function formatRowSheet({ event, transaction }) {
     const decodedTransaction = abiDecoder.decodeMethod(transaction.input);
     const mintIndex = decodedTransaction.params[0].value;
-    const amount = (event.returnValues.amount / 10 ** 18).toFixed(2);
-    return '=SPLIT("' + event.transactionHash + ',' + event.returnValues.to + ',' + amount + ',' + event.blockNumber + ',' + mintIndex + '", ",")';
+    const value = math.divide(event.returnValues.value, 10 ** 18).toFixed(2);
+    return '=SPLIT("' + event.transactionHash + ',' + event.returnValues.to + ',' + value + ',' + event.blockNumber + ',' + mintIndex + '", ",")';
 }
 
 function formatRowEvent({ event, transaction }) {
-    return 'Mint(' + event.returnValues.to + ',' + event.returnValues.amount + ')';
+    return 'Mint(' + event.returnValues.to + ',' + event.returnValues.value + ')';
 }
 
 let formatRow;
