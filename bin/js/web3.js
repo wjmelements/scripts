@@ -2,9 +2,9 @@
 // Include it with:
 // web3 = require('./web3.js');
 
-fs = require('fs');
-
+const fs = require('fs');
 const Web3 = require('web3');
+
 const defaultProviderUrl = 'https://mainnet.infura.io';
 
 let customProviderUrl;
