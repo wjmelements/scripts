@@ -186,6 +186,14 @@ Set your `EDITOR` in your `~/.bashrc`, else it will default to `nano`.
 You can add custom pull request templates, placing them in `config`.
 See the documentation [here](#specify-template--t).
 
+## Custom Ethereum RPC
+You can supply a custom URL for your Ethereum RPC provider, placing the url in `config/ethrpc`.
+
+    # Example: Custom INFURA URL
+    echo https://mainnet.infura.io/v3/c238f0a19b0d33801d6e6409932d8dbd > config/ethrpc
+
+Otherwise, it will default to `https://infura.io`.
+
 ## Github Enterprise or Bitbucket
 To add support for alternative remote repositories, modify `bin/common/github_origin`.
 

@@ -1,6 +1,10 @@
+# VIM
 *.swo
 *.swp
+
+# config
 cpr.custom
+config/ethrpc
 
 # node
 node_modules
