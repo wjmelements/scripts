@@ -1,8 +1,5 @@
-const Web3 = require('web3');
 const math = require('mathjs');
-
-const providerUrl = 'https://mainnet.infura.io/';
-const web3 = new Web3(new Web3.providers.HttpProvider(providerUrl));
+const web3 = require('./web3.js');
 const abiDecoder = require('abi-decoder');
 
 const TrueUSDAddress = '0x0000000000085d4780B73119b644AE5ecd22b376';
