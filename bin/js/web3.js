@@ -3,13 +3,15 @@
 // web3 = require('./web3.js');
 
 const fs = require('fs');
+const path = require('path');
 const Web3 = require('web3');
 
 const defaultProviderUrl = 'https://mainnet.infura.io';
 
 let customProviderUrl;
 try {
-  customProviderUrl = fs.readFileSync('./config/ethrpc', 'utf8');
+  const configPath = __dirname + '/../../config/ethrpc';
+  customProviderUrl = fs.readFileSync(configPath, 'utf8');
 } catch (e) {}
 
 const providerUrl = customProviderUrl || defaultProviderUrl;
