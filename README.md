@@ -13,6 +13,7 @@ These are Ethereum utility scripts for TrustToken.
 * **requestMints** - List recent TrueUSD RequestMint Events
 * **finalizeMint** - List recent TrueUSD Mint events
 * **refundPool** - Show count of sponsored transactions
+* **isBlacklisted** - Report whether addresses are blacklisted from TrueUSD
 
 # Setup
 Create a new Github personal access token and give it `repo` permissions.
@@ -173,6 +174,12 @@ Specify starting block
     refundPool
 
 This script shows the current size of the refund pool for TrueUSD in transactions.
+
+## isBlacklisted
+
+    isBlacklisted [address...]
+
+Shows whether the given address(es) are blacklisted in the TrustToken Registry.
 
 # Configuration
 ## Text Editor
