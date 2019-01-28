@@ -8,6 +8,10 @@ const ControllerAddress = '0x0000000000075EfBeE23fe2de1bd0b7690883cc9';
 const ControllerAbi = require('../abi/controllerAbi.json');
 const Controller = new web3.eth.Contract(ControllerAbi, ControllerAddress);
 
+const RegistryAddress = '0x0000000000013949F288172bD7E36837bDdC7211';
+const RegistryAbi = require('../abi/registryAbi.json');
+const Registry = new web3.eth.Contract(RegistryAbi, RegistryAddress);
+
 let result = eval(process.argv[2])
 if (result && result.then) {
     result.then(console.log).catch(console.error);
