@@ -44,12 +44,37 @@ const attributes = [
   },
 ];
 
+function hasAttribute(address, attribute) {
+  return Registry.methods.hasAttribute(attribute.addressModifier ? attribute.addressModifier(address) : address, attribute.bytes32).call().then((hasAttribute) => hasAttribute ? attribute.name : false);
+}
+
+function hasWriteAttribute(address, attribute) {
+  return Registry.methods.writeAttributeFor(attribute.bytes32).call().then((writeAttributeBytes32) => hasAttribute(address, {
+    name: 'WRITE_' + attribute.name,
+    bytes32: writeAttributeBytes32,
+  }))
+}
+
+function hasWriteWriteAttribute(address, attribute) {
+  return Registry.methods.writeAttributeFor(attribute.bytes32).call().then((writeAttributeBytes32) => hasWriteAttribute(address, {
+    name: 'WRITE_' + attribute.name,
+    bytes32: writeAttributeBytes32,
+  }))
+}
+
 async function fetchAllAttributes(address) {
   let requests = [];
   for (let attribute of attributes) {
-    requests.push(Registry.methods.hasAttribute(attribute.addressModifier ? attribute.addressModifier(address) : address, attribute.bytes32).call().then((hasAttribute) => hasAttribute ? attribute.name : false));
+    requests.push(hasAttribute(address, attribute));
   }
-  // TODO write attributes
+  // WRITE_
+  for (let attribute of attributes) {
+    requests.push(hasWriteAttribute(address, attribute));
+  }
+  // WRITE_WRITE_
+  for (let attribute of attributes) {
+    requests.push(hasWriteWriteAttribute(address, attribute));
+  }
   return await Promise.all(requests).then((results) => results.filter((result) => result));
 }
 
