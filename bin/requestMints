@@ -19,7 +19,7 @@ while getopts 'as:g' flag; do
     esac
 done
 
-END=$(web3 "web3.eth.getBlockNumber()")
+END=$($(dirname $0)/web3 "web3.eth.getBlockNumber()")
 
 echo Checking from $PRIOR to $END inclusive
 

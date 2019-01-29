@@ -2,6 +2,6 @@
 
 for address in "$@"
 do
-  IS_BLACKLISTED=$(web3 "Registry.methods.hasAttribute('$address', '0x6973426c61636b6c697374656400000000000000000000000000000000000000').call()")
+  IS_BLACKLISTED=$($(dirname $0)/web3 "Registry.methods.hasAttribute('$address', '0x6973426c61636b6c697374656400000000000000000000000000000000000000').call()")
   echo $address: $IS_BLACKLISTED
 done
