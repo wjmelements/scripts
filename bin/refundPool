@@ -1,4 +1,15 @@
 #!/bin/bash
 
-#node $(dirname $0)/js/evalWeb3.js "TrueUSD.methods.remainingGasRefundPool().call()"
-node $(dirname $0)/js/refundPool.js
+while getopts 'a' flag; do
+    case "${flag}" in
+        a) ALL=true ;;
+        *) error "Unexpected option ${flag}" ;;
+    esac
+done
+
+if [ -n "$ALL" ]
+then
+  node $(dirname $0)/js/fullRefundPool.js
+else
+  node $(dirname $0)/js/refundPool.js
+fi
