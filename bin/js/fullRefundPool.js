@@ -11,9 +11,9 @@ function printLine({ start, end, value }) {
 async function run() {
   const len = await TrueUSD.methods.remainingGasRefundPool().call();
   let arr = [];
-  for (let i = 0; i < len; i += 1000) {
+  for (let i = 0; i < len; i += 2575) {
     const batch = new web3.eth.BatchRequest();
-    for (let j = i; j < len && j < i + 1000; j++) {
+    for (let j = i; j < len && j < i + 2575; j++) {
       batch.add(TrueUSD.methods.gasRefundPool(j).call.request({}, 'latest', (err, result) => {
         if (err) {
           console.error(err);
