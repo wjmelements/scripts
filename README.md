@@ -172,10 +172,12 @@ Specify starting block
 
 ## refundPool
 
-    refundPool
+    refundPool [-a]
 
 This script shows the current size of the refund pool for TrueUSD in transactions.
 
+### -a
+With this switch, the script shows the entire state of the `gasRefundPool` array.
 
 ## registryAttributes
 
