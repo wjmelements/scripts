@@ -8,21 +8,32 @@ function printLine({ start, end, value }) {
   console.log(`${start} - ${end}:\t${value}\t[${end - start + 1}]`);
 }
 
+const BATCH_SIZE = 2575;
+
 async function run() {
-  const len = await TrueUSD.methods.remainingGasRefundPool().call();
+  let len = await TrueUSD.methods.remainingGasRefundPool().call();
   let arr = [];
-  for (let i = 0; i < len; i += 2575) {
+  for (let i = 0; i < len; i += BATCH_SIZE) {
     const batch = new web3.eth.BatchRequest();
-    for (let j = i; j < len && j < i + 2575; j++) {
+    for (let j = i; j < len && j < i + BATCH_SIZE; j++) {
       batch.add(TrueUSD.methods.gasRefundPool(j).call.request({}, 'latest', (err, result) => {
         if (err) {
-          console.error(err);
+          if (err.message !== "Returned values aren't valid, did it run Out of Gas?") {
+            console.error(err);
+          }
           return;
         }
         arr[j] = result;
       }));
     }
-    await batch.execute();
+    await batch.execute().catch(async function(error) {
+      if (!error.message.startsWith("BatchRequest error")) {
+        console.error(error);
+      }
+      // retry
+      len = await TrueUSD.methods.remainingGasRefundPool().call();
+      i -= BATCH_SIZE;
+    });
   }
   let start = 0;
   let end = 0;
