@@ -8,7 +8,7 @@ function printLine({ start, end, value }) {
   console.log(`${start} - ${end}:\t${value}\t[${end - start + 1}]`);
 }
 
-const BATCH_SIZE = 2575;
+const BATCH_SIZE = 2500;
 
 async function run() {
   let len = await TrueUSD.methods.remainingGasRefundPool().call();
