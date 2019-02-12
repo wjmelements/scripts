@@ -39,7 +39,7 @@ function printAddressAttributes() {
   for (let i = 2; i < process.argv.length; i++) {
     let address = process.argv[i];
     fetchAllAttributes(address).then((attributes) => {
-      console.log(address, attributes);
+      console.log(web3.utils.toChecksumAddress(address), attributes);
     });
   }
 }
