@@ -185,6 +185,9 @@ With this switch, the script shows the entire state of the `gasRefundPool` array
 
 Shows all of the known attributes set for the provided address(es) in the TrustToken Registry.
 
+### -a
+With this switch, the script shows the entire state of the Registry.
+
 ## isBlacklisted
 
     isBlacklisted [address...]

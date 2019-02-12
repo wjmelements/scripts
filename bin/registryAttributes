@@ -1,3 +1,15 @@
 #!/bin/bash
 
-node $(dirname $0)/js/attributes $@
+while getopts 'a' flag; do
+    case "${flag}" in
+        a) ALL=true ;;
+        *) error "Unexpected option ${flag}" ;;
+    esac
+done
+
+if [ -n "$ALL" ]
+then
+  node $(dirname $0)/js/fullAttributes
+else
+  node $(dirname $0)/js/attributes $@
+fi
