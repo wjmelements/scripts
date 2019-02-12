@@ -70,7 +70,7 @@ function getEvents({ fromBlock, toBlock }) {
       resolve(results.map((result) => ({
         blockNumber: web3.utils.toDecimal(result.blockNumber),
         transactionHash: result.transactionHash,
-        who: '0x' + result.topics[1].slice(26),
+        who: web3.utils.toChecksumAddress('0x' + result.topics[1].slice(26)),
         attribute: result.data.slice(0, 66),
         value: result.data.slice(66, 130)
       })));
