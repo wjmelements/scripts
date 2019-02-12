@@ -44,9 +44,8 @@ function printRegistry() {
       if (!attribute[who].value) {
         continue;
       }
-      let len = attribute.attribute.name.length;
       process.stdout.write(attribute.attribute.name);
-      for (let i = len; i < 38; i++) {
+      for (let i = attribute.attribute.name.length; i < 38; i++) {
         process.stdout.write(' ');
       }
       process.stdout.write(who);
