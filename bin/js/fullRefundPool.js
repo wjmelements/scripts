@@ -45,7 +45,7 @@ async function run() {
         i -= BATCH_SIZE;
         return;
       }
-      printLines({ start: i, end: Math.min(i + BATCH_SIZE - 1, len - 1) });
+      printLines({ start: i, end: Math.min(i + BATCH_SIZE, len) - 1 });
     }).catch(async function(error) {
       if (!error.message.startsWith("BatchRequest error")) {
         console.error(error);
