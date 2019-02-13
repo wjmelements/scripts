@@ -11,17 +11,14 @@ function printLine({ start, end, value }) {
 let lastPrinted = 0;
 let arr = [];
 function printLines({ start, end }) {
-  let value = arr[lastPrinted];
   for (let i = start; i < end; i++) {
-    if (value != arr[i]) {
+    if (arr[lastPrinted] != arr[i]) {
       printLine({
         start: lastPrinted,
         end: i - 1,
-        value
+        value: arr[lastPrinted],
       });
-      start = i;
       lastPrinted = i; 
-      value = arr[i];
     }
   }
 }
