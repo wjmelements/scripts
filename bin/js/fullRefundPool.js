@@ -4,21 +4,20 @@ const TrueUSDAddress = '0x0000000000085d4780B73119b644AE5ecd22b376';
 const TrueUSDAbi = require('../abi/trueUsdAbi.json')
 const TrueUSD = new web3.eth.Contract(TrueUSDAbi, TrueUSDAddress)
 
-function printLine({ start, end, value }) {
-  console.log(`${start} - ${end}:\t${value}\t[${end - start + 1}]`);
+let arr = [];
+function printLine({ start, end }) {
+  console.log(`${start} - ${end}:\t${arr[start]}\t[${end - start + 1}]`);
 }
 
-let lastPrinted = 0;
-let arr = [];
+let nextPrintStart = 0;
 function printLines({ start, end }) {
   for (let i = start; i < end; i++) {
-    if (arr[lastPrinted] != arr[i]) {
+    if (arr[nextPrintStart] != arr[i]) {
       printLine({
-        start: lastPrinted,
+        start: nextPrintStart,
         end: i - 1,
-        value: arr[lastPrinted],
       });
-      lastPrinted = i; 
+      nextPrintStart = i;
     }
   }
 }
@@ -57,9 +56,8 @@ async function run() {
     });
   }
   printLine({
-    start: lastPrinted,
+    start: nextPrintStart,
     end: len - 1,
-    value: arr[lastPrinted]
   });
 }
 
