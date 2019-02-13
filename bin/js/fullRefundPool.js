@@ -8,11 +8,28 @@ function printLine({ start, end, value }) {
   console.log(`${start} - ${end}:\t${value}\t[${end - start + 1}]`);
 }
 
+let lastPrinted = 0;
+let arr = [];
+function printLines({ start, end }) {
+  let value = arr[lastPrinted];
+  for (let i = start; i < end; i++) {
+    if (value != arr[i]) {
+      printLine({
+        start: lastPrinted,
+        end: i - 1,
+        value
+      });
+      start = i;
+      lastPrinted = i; 
+      value = arr[i];
+    }
+  }
+}
+
 const BATCH_SIZE = 2500;
 
 async function run() {
   let len = await TrueUSD.methods.remainingGasRefundPool().call();
-  let arr = [];
   for (let i = 0; i < len; i += BATCH_SIZE) {
     const batch = new web3.eth.BatchRequest();
     for (let j = i; j < len && j < i + BATCH_SIZE; j++) {
@@ -26,7 +43,14 @@ async function run() {
         arr[j] = result;
       }));
     }
-    await batch.execute().catch(async function(error) {
+    await batch.execute().then((results) => {
+      if (arr[i] == null) {
+        // retry
+        i -= BATCH_SIZE;
+        return;
+      }
+      printLines({ start: i, end: Math.min(i + BATCH_SIZE - 1, len) });
+    }).catch(async function(error) {
       if (!error.message.startsWith("BatchRequest error")) {
         console.error(error);
       }
@@ -35,25 +59,10 @@ async function run() {
       i -= BATCH_SIZE;
     });
   }
-  let start = 0;
-  let end = 0;
-  let value = arr[0];
-  for (let i = 1; i < len; i++) {
-    if (value != arr[i]) {
-      printLine({
-        start,
-        end,
-        value
-      });
-      start = i;
-      value = arr[i];
-    }
-    end = i;
-  }
   printLine({
-    start,
+    start: lastPrinted,
     end: len - 1,
-    value
+    value: arr[lastPrinted]
   });
 }
 
