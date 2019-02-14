@@ -12,7 +12,7 @@ These are Ethereum utility scripts for TrustToken.
 * **web3** - Evaluate web3
 * **requestMints** - List recent TrueUSD RequestMint Events
 * **finalizeMint** - List recent TrueUSD Mint events
-* **refundPool** - Show count of sponsored transactions
+* **refundPool** - Show sponsored transactions
 * **registryAttributes** - Show Registry attributes for addresses
 * **isBlacklisted** - Report whether addresses are blacklisted from TrueUSD
 
