@@ -7,9 +7,27 @@ while getopts 'a' flag; do
     esac
 done
 
+if [ ! -n "$ALL" ]
+then
+  for word in $@ ; do
+    # use long method if they specify which attributes
+    if [[ "DEPOSIT_ADDRESS BLACKLISTED MINT_RATIFIER MINT_PAUSER REDEMPTION_ADDRESS REGISTERED_CONTRACT CAN_BURN PASSED_KYCAML SET_FUTURE_REFUND_MIN_GAS_PRICE" =~ "$word"  ]];
+    then
+      ALL=true
+      break
+    fi
+    # use long method if they specify attribute by value
+    if [ ${#word} -eq 66 ] && [ ${word:0:2} == "0x" ]
+    then
+      ALL=true
+      break
+    fi
+  done
+fi
+
 if [ -n "$ALL" ]
 then
-  node $(dirname $0)/js/fullAttributes
+  node $(dirname $0)/js/fullAttributes $@
 else
   node $(dirname $0)/js/attributes $@
 fi
