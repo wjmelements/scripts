@@ -13,12 +13,38 @@ const writeAttributeFor = require('./writeAttributeFor.js');
 
 // bytes32 -> attribute
 const attributes = {};
+const attributesByName = {};
 for (let attribute of allAttributes) {
-  attributes[attribute.bytes32] = { attribute };
   const writeAttribute = writeAttributeFor(attribute);
-  attributes[writeAttribute.bytes32] = { attribute: writeAttribute };
   const writeWriteAttribute = writeAttributeFor(writeAttribute);
+  attributes[attribute.bytes32] = { attribute };
+  attributes[writeAttribute.bytes32] = { attribute: writeAttribute };
   attributes[writeWriteAttribute.bytes32] = { attribute: writeWriteAttribute };
+  attributesByName[attribute.name] = attribute;
+  attributesByName[writeAttribute.name] = writeAttribute;
+  attributesByName[writeWriteAttribute.name] = writeWriteAttribute;
+}
+
+const addressFilter = [];
+const attributeFilter = {};
+for (let i = 2; i < process.argv.length; i++) {
+  const arg = process.argv[i];
+  if (arg in attributesByName) {
+    attributeFilter[attributesByName[arg].bytes32] = true;
+    continue;
+  }
+  if (web3.utils.isAddress(arg)) {
+    addressFilter.push('0x000000000000000000000000' + arg.slice(2));
+    continue;
+  }
+  if (arg.length == 66 && web3.utils.isHex(arg)) {
+    attributeFilter[arg] = true;
+    continue;
+  }
+  if (arg == '-a') {
+    continue;
+  }
+  console.log('Ignoring unknown parameter', arg);
 }
 
 function applyEvents(eventsArr) {
@@ -27,6 +53,9 @@ function applyEvents(eventsArr) {
     for (let event of events) {
       if (!(event.attribute in attributes)) {
         process.stderr.write('Unknown attribute ' + event.attribute + '\n');
+        continue;
+      }
+      if (Object.keys(attributeFilter).length !== 0 && !(attributeFilter[event.attribute])) {
         continue;
       }
       attributes[event.attribute][event.who] = event;
@@ -65,7 +94,18 @@ function getEvents({ fromBlock, toBlock }) {
       if (req.readyState !== 4) {
         return;
       }
-      const results = JSON.parse(req.responseText).result;
+      if (!req.responseText) {
+        console.error(results.error);
+        reject(results.error);
+        return;
+      }
+      const response = JSON.parse(req.responseText);
+      if (!response.result) {
+        console.error(response.error);
+        reject(response.error);
+        return;
+      }
+      const results = response.result;
       resolve(results.map((result) => ({
         blockNumber: web3.utils.toDecimal(result.blockNumber),
         transactionHash: result.transactionHash,
@@ -80,7 +120,8 @@ function getEvents({ fromBlock, toBlock }) {
       "method": "eth_getLogs",
       "params": [{
         "topics":[
-          /* SetAttribute */ '0x7f467fc85b3c9db1144a5f705bcb37dcd17e760ed57b1921186f50b51000c3a1'
+          /* SetAttribute */ '0x7f467fc85b3c9db1144a5f705bcb37dcd17e760ed57b1921186f50b51000c3a1',
+          addressFilter.length ? addressFilter : null,
         ],
         "address": RegistryAddress,
         "fromBlock": web3.utils.toHex(fromBlock),
@@ -100,7 +141,7 @@ async function run() {
     promises.push(getEvents({
       fromBlock,
       toBlock: Math.min(fromBlock + BATCH_SIZE - 1, endBlock)
-    }).then((events) => events.sort((one, two) => one.blockNumber - two.blockNumber)));
+    }).then((events) => events.sort((one, two) => one.blockNumber - two.blockNumber)).catch(console.error));
   }
   await Promise.all(promises).then(applyEvents).then(printRegistry);
 }

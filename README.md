@@ -12,7 +12,7 @@ These are Ethereum utility scripts for TrustToken.
 * **web3** - Evaluate web3
 * **requestMints** - List recent TrueUSD RequestMint Events
 * **finalizeMint** - List recent TrueUSD Mint events
-* **refundPool** - Show count of sponsored transactions
+* **refundPool** - Show sponsored transactions
 * **registryAttributes** - Show Registry attributes for addresses
 * **isBlacklisted** - Report whether addresses are blacklisted from TrueUSD
 
@@ -181,12 +181,22 @@ With this switch, the script shows the entire state of the `gasRefundPool` array
 
 ## registryAttributes
 
-    registryAttributes [address...]
+    registryAttributes [-a] [address...] [attribute...]
 
 Shows all of the known attributes set for the provided address(es) in the TrustToken Registry.
 
 ### -a
 With this switch, the script shows the entire state of the Registry.
+This switch also forces output into the table format.
+The columns of the table are attribute name, address, value, and the transaction hash of the latest change.
+
+### Filters
+If you supply a attribute hex, an attribute name, or an ethereum address, the results will be filtered to those values.
+If you supply multiple addresses, you will get the attributes for both addresses.
+
+#### With -a
+If you only specify an address filter but do not supply `-a`, the output will be in the address-row format.
+If you supply `-a` with an address filter, the output will be in the table format.
 
 ## isBlacklisted
 
