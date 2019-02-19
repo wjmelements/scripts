@@ -40,6 +40,7 @@ Controller.getPastEvents('RequestMint', { fromBlock, toBlock }).then((events) =>
 
 let req = new XMLHttpRequest();
 req.open('POST', providerUrl, true);
+req.setRequestHeader('Content-Type', 'application/json');
 req.onreadystatechange = () => {
   if (req.readyState == 4) {
     const results = JSON.parse(req.responseText).result;
