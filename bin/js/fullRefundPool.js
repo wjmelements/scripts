@@ -4,15 +4,28 @@ const TrueUSDAddress = '0x0000000000085d4780B73119b644AE5ecd22b376';
 const TrueUSDAbi = require('../abi/trueUsdAbi.json')
 const TrueUSD = new web3.eth.Contract(TrueUSDAbi, TrueUSDAddress)
 
-function printLine({ start, end, value }) {
-  console.log(`${start} - ${end}:\t${value}\t[${end - start + 1}]`);
+let arr = [];
+function printLine({ start, end }) {
+  console.log(`${start} - ${end}:\t${arr[start]}\t[${end - start + 1}]`);
+}
+
+let nextPrintStart = 0;
+function printLines({ start, end }) {
+  for (let i = start; i < end; i++) {
+    if (arr[nextPrintStart] != arr[i]) {
+      printLine({
+        start: nextPrintStart,
+        end: i - 1,
+      });
+      nextPrintStart = i;
+    }
+  }
 }
 
 const BATCH_SIZE = 2500;
 
 async function run() {
   let len = await TrueUSD.methods.remainingGasRefundPool().call();
-  let arr = [];
   for (let i = 0; i < len; i += BATCH_SIZE) {
     const batch = new web3.eth.BatchRequest();
     for (let j = i; j < len && j < i + BATCH_SIZE; j++) {
@@ -26,7 +39,14 @@ async function run() {
         arr[j] = result;
       }));
     }
-    await batch.execute().catch(async function(error) {
+    await batch.execute().then((results) => {
+      if (arr[i] == null) {
+        // retry
+        i -= BATCH_SIZE;
+        return;
+      }
+      printLines({ start: i, end: Math.min(i + BATCH_SIZE, len) - 1 });
+    }).catch(async function(error) {
       if (!error.message.startsWith("BatchRequest error")) {
         console.error(error);
       }
@@ -35,25 +55,9 @@ async function run() {
       i -= BATCH_SIZE;
     });
   }
-  let start = 0;
-  let end = 0;
-  let value = arr[0];
-  for (let i = 1; i < len; i++) {
-    if (value != arr[i]) {
-      printLine({
-        start,
-        end,
-        value
-      });
-      start = i;
-      value = arr[i];
-    }
-    end = i;
-  }
   printLine({
-    start,
+    start: nextPrintStart,
     end: len - 1,
-    value
   });
 }
 
