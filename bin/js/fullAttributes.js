@@ -115,6 +115,7 @@ function getEvents({ fromBlock, toBlock }) {
       })));
     };
     req.open('POST', providerUrl, true);
+    req.setRequestHeader('Content-Type', 'application/json');
     req.send(JSON.stringify({
       "jsonrpc": "2.0",
       "method": "eth_getLogs",
