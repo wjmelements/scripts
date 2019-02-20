@@ -41,7 +41,7 @@ Install the dependency `jq`. On Mac you can do this with Homebrew.
 
 Optionally, add `/path/to/scripts/bin` to your `$PATH`, which allows you to execute these scripts without providing their full path.
 
-    echo 'PATH=$PATH:~/scripts/bin' >> ~/.bashrc
+    echo PATH='$PATH:~/scripts/bin' >> ~/.bashrc
     source ~/.bashrc
 
 # Manual
