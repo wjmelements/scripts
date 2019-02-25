@@ -6,7 +6,7 @@ const TrueUSD = new web3.eth.Contract(TrueUSDAbi, TrueUSDAddress)
 
 function paddyPrint({ width, string }) {
   for (let i = 0; i + string.length < width; i++) {
-	process.stdout.write(' ');
+    process.stdout.write(' ');
   }
   process.stdout.write(string);
 }
@@ -31,9 +31,9 @@ function printLines({ start, end }) {
     }
   }
   printLine({
-	start: nextPrintStart,
-	end,
-	pending: true
+    start: nextPrintStart,
+    end,
+    pending: true
   })
 }
 
