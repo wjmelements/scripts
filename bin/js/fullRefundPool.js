@@ -4,9 +4,19 @@ const TrueUSDAddress = '0x0000000000085d4780B73119b644AE5ecd22b376';
 const TrueUSDAbi = require('../abi/trueUsdAbi.json')
 const TrueUSD = new web3.eth.Contract(TrueUSDAbi, TrueUSDAddress)
 
+function paddyPrint({ width, string }) {
+  for (let i = 0; i + string.length < width; i++) {
+    process.stdout.write(' ');
+  }
+  process.stdout.write(string);
+}
+
 let arr = [];
-function printLine({ start, end }) {
-  console.log(`${start} - ${end}:\t${arr[start]}\t[${end - start + 1}]`);
+let len = 3000;
+function printLine({ start, end, pending }) {
+  paddyPrint({ string: `${start} - ${end}: `, width: String(len).length * 2 + 5 })
+  paddyPrint({ string: `${arr[start]} `, width: 14 })
+  process.stdout.write(`[${end - start + 1}${pending ? ' / ' + (len - start) + ']\r' : ']        \n'}`);
 }
 
 let nextPrintStart = 0;
@@ -20,12 +30,17 @@ function printLines({ start, end }) {
       nextPrintStart = i;
     }
   }
+  printLine({
+    start: nextPrintStart,
+    end,
+    pending: true
+  })
 }
 
 const BATCH_SIZE = 2500;
 
 async function run() {
-  let len = await TrueUSD.methods.remainingGasRefundPool().call();
+  len = await TrueUSD.methods.remainingGasRefundPool().call();
   for (let i = 0; i < len; i += BATCH_SIZE) {
     const batch = new web3.eth.BatchRequest();
     for (let j = i; j < len && j < i + BATCH_SIZE; j++) {
