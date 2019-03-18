@@ -11,7 +11,8 @@ These are Ethereum utility scripts for TrustToken.
 
 * **web3** - Evaluate web3
 * **requestMints** - List recent TrueUSD RequestMint Events
-* **finalizeMint** - List recent TrueUSD Mint events
+* **instantMints** - List recent TrueUSD InstantMint Events
+* **finalizeMints** - List recent TrueUSD Mint events
 * **refundPool** - Show sponsored transactions
 * **registryAttributes** - Show Registry attributes for addresses
 * **isBlacklisted** - Report whether addresses are blacklisted from TrueUSD
@@ -160,6 +161,23 @@ Specify starting block
 
 The script lists recent Mint events in TrueUSD.
 The events are copied into your pasteboard.
+
+### -a
+Instead of listing recent events, list all events.
+
+### -g
+Formats the event data for pasting into a spreadsheet.
+
+### -s start\_block
+Specify starting block
+
+## instantMints
+
+    instantMints [-a] [-g] [-s start_block]
+
+The script lists recent InstantMint events in the TrueUSD Controller.
+The events are copied into your pasteboard.
+By default the script lists only events since the last time you ran it.
 
 ### -a
 Instead of listing recent events, list all events.

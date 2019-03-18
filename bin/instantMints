@@ -1,0 +1,36 @@
+#!/bin/bash
+
+source $(dirname $0)/common/init
+
+PRIORFILE=~/.lastmintblock.instant
+if [[ -s $PRIORFILE ]];
+then
+    PRIOR=$(<$PRIORFILE)
+else
+    PRIOR=5198576 
+fi
+
+while getopts 'as:g' flag; do
+    case "${flag}" in
+        a) PRIOR=5198576 ;;
+        s) PRIOR="${OPTARG}" ;;
+        g) FORMAT=sheet ;;
+        *) error "Unexpected option ${flag}" ;;
+    esac
+done
+
+END=$($(dirname $0)/web3 "web3.eth.getBlockNumber()")
+
+echo Checking from $PRIOR to $END inclusive
+
+PASTE=$(node $(dirname $0)/js/fetchInstantMintEvents.js $PRIOR $END $FORMAT)
+if [ -n "$PASTE" ]
+then
+    echo "$PASTE" | pbcopy
+    echo "$PASTE"
+    echo "(copied to clipboard)"
+else
+    echo No new InstantMint events
+fi
+
+echo $(( $END + 1 )) > $PRIORFILE
