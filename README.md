@@ -141,7 +141,7 @@ The eval context also can reference TrueUSD and its Controller objects.
 
 ## requestMints
 
-    requestMints [-a] [-g] [-s start_block]
+    requestMints [-a] [-g] [-s start_block] [-t token]
 
 The script lists recent RequestMint Event events in the TrueUSD Controller.
 The events are copied into your pasteboard.
@@ -155,9 +155,12 @@ Formats the event data for pasting into a spreadsheet.
 ### -s start\_block
 Specify starting block
 
+### -t token
+Specify token, e.g. TrueUSD, TUSD, or 0x0000000000085d4780B73119b644AE5ecd22b376.
+
 ## finalizeMints
 
-    finalizeMints [-a] [-g] [-s start_block]
+    finalizeMints [-a] [-g] [-s start_block] [-t token]
 
 The script lists recent Mint events in TrueUSD.
 The events are copied into your pasteboard.
@@ -171,9 +174,12 @@ Formats the event data for pasting into a spreadsheet.
 ### -s start\_block
 Specify starting block
 
+### -t token
+Specify token, e.g. TrueUSD, TUSD, or 0x0000000000085d4780B73119b644AE5ecd22b376.
+
 ## instantMints
 
-    instantMints [-a] [-g] [-s start_block]
+    instantMints [-a] [-g] [-s start_block] [-t token]
 
 The script lists recent InstantMint events in the TrueUSD Controller.
 The events are copied into your pasteboard.
@@ -187,6 +193,9 @@ Formats the event data for pasting into a spreadsheet.
 
 ### -s start\_block
 Specify starting block
+
+### -t token
+Specify token, e.g. TrueUSD, TUSD, or 0x0000000000085d4780B73119b644AE5ecd22b376.
 
 ## refundPool
 
