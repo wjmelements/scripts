@@ -1,18 +1,18 @@
 const math = require('mathjs');
 const web3 = require('./web3.js');
+const { getControllerAddress, getTokenAddress } = require('./getTokenAddress.js');
 const abiDecoder = require('abi-decoder');
 
-const TrueUSDAddress = '0x0000000000085d4780B73119b644AE5ecd22b376';
-const TrueUSDAbi = require('../abi/trueUsdAbi.json');
-const TrueUSD = new web3.eth.Contract(TrueUSDAbi, TrueUSDAddress);
-
-const ControllerAddress = '0x0000000000075EfBeE23fe2de1bd0b7690883cc9';
-const ControllerAbi = require('../abi/controllerAbi.json');
-const Controller = new web3.eth.Contract(ControllerAbi, ControllerAddress);
 
 const fromBlock = process.argv[2];
 const toBlock = process.argv[3];
 const format = process.argv[4];
+const controllerAddress = getControllerAddress(process.argv[5] || 'TUSD');
+const ControllerAbi = require('../abi/controllerAbi.json');
+const Controller = new web3.eth.Contract(ControllerAbi, controllerAddress);
+const TokenAddress = getTokenAddress(process.argv[5] || 'TUSD');
+const TokenAbi = require('../abi/trueUsdAbi.json');
+const Token = new web3.eth.Contract(TokenAbi, TokenAddress);
 
 abiDecoder.addABI(ControllerAbi);
 
@@ -39,7 +39,7 @@ async function processEvent(event) {
     return { event, transaction };
 }
 
-TrueUSD.getPastEvents('Mint', { fromBlock, toBlock }).then((events) => {
+Token.getPastEvents('Mint', { fromBlock, toBlock }).then((events) => {
     let promises = [];
     events.forEach((event) => {
         promises.push(new Promise(async function(resolve, reject) {

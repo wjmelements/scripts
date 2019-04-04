@@ -1,17 +1,14 @@
 const web3 = require('./web3.js');
 const providerUrl = require('./providerUrl.js');
+const { getControllerAddress } = require('./getTokenAddress.js');
 
-const TrueUSDAddress = '0x0000000000085d4780B73119b644AE5ecd22b376';
-const TrueUSDAbi = require('../abi/trueUsdAbi.json');
-const TrueUSD = new web3.eth.Contract(TrueUSDAbi, TrueUSDAddress);
-
-const ControllerAddress = '0x0000000000075EfBeE23fe2de1bd0b7690883cc9';
-const ControllerAbi = require('../abi/controllerAbi.json');
-const Controller = new web3.eth.Contract(ControllerAbi, ControllerAddress);
 
 const fromBlock = process.argv[2];
 const toBlock = process.argv[3];
 const format = process.argv[4];
+const controllerAddress = getControllerAddress(process.argv[5] || 'TUSD');
+const ControllerAbi = require('../abi/controllerAbi.json');
+const Controller = new web3.eth.Contract(ControllerAbi, controllerAddress);
 
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
@@ -66,7 +63,7 @@ req.send(JSON.stringify({
     "topics":[
       /* RequestMint */ '0x883eab2a74c029007e37f3f118fa7713d39b756c0b7c932a0269fcb995a4724c',
     ],
-    "address": '0x0000000000075EfBeE23fe2de1bd0b7690883cc9',
+    "address": controllerAddress,
     "fromBlock": web3.utils.toHex(fromBlock),
     "toBlock": web3.utils.toHex(toBlock)
   }],

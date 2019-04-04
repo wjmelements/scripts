@@ -1,16 +1,17 @@
 const math = require('mathjs');
 const web3 = require('./web3.js');
+const { getControllerAddress } = require('./getTokenAddress.js');
 const providerUrl = require('./providerUrl.js');
 const abiDecoder = require('abi-decoder');
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
-const ControllerAddress = '0x0000000000075EfBeE23fe2de1bd0b7690883cc9';
-const ControllerAbi = require('../abi/controllerAbi.json');
-const Controller = new web3.eth.Contract(ControllerAbi, ControllerAddress);
 
 const fromBlock = process.argv[2];
 const toBlock = process.argv[3];
 const format = process.argv[4];
+const controllerAddress = getControllerAddress(process.argv[5] || 'TUSD');
+const ControllerAbi = require('../abi/controllerAbi.json');
+const Controller = new web3.eth.Contract(ControllerAbi, controllerAddress);
 
 abiDecoder.addABI(ControllerAbi);
 
@@ -79,7 +80,7 @@ req.send(JSON.stringify({
     "topics":[
       /* RequestMint */ '0xec755a4feb8086d62e216ca919461349221df54bf9ca83300b7a2bf8e5807dfc',
     ],
-    "address": '0x0000000000075EfBeE23fe2de1bd0b7690883cc9',
+    "address": controllerAddress,
     "fromBlock": web3.utils.toHex(fromBlock),
     "toBlock": web3.utils.toHex(toBlock)
   }],
