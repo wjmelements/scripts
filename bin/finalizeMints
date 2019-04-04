@@ -1,14 +1,8 @@
 #!/bin/bash
 
 source $(dirname $0)/common/init
+source $(dirname $0)/common/prior_block
 
-PRIORFILE=~/.lastmintblock.finalize
-if [[ -s $PRIORFILE ]];
-then
-    PRIOR=$(<$PRIORFILE)
-else
-    PRIOR=5198576 
-fi
 TOKEN=TUSD
 
 while getopts 'as:gt:' flag; do
@@ -20,6 +14,7 @@ while getopts 'as:gt:' flag; do
         *) error "Unexpected option ${flag}" ;;
     esac
 done
+loadPriorBlock finalize
 
 END=$($(dirname $0)/web3 "web3.eth.getBlockNumber()")
 
