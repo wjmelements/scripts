@@ -18,6 +18,10 @@ function getControllerAddress(name) {
   return tokenToController[tokenAddress] || console.error('No known Controller for ', name);
 }
 
+if (process.argv[1].endsWith('getTokenAddress.js')) {
+  process.stdout.write(getTokenAddress(process.argv[2]))
+}
+
 module.exports = {
   getTokenAddress,
   getControllerAddress,

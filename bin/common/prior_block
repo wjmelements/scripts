@@ -1,0 +1,33 @@
+#!/bin/bash
+
+function loadPriorBlock {
+    # even if we don't load PRIORFILE, we need it to update it
+    if [ "$TOKEN" == "TUSD" ]
+    then
+        PRIORFILE=~/.lastmintblock.$1
+    else
+        TOKEN_ADDRESS=$(node $(dirname $0)/js/getTokenAddress.js "$TOKEN")
+        PRIORFILE=~/.lastmintblock.$1.$TOKEN_ADDRESS
+    fi
+    if [ -n "$PRIOR" ]
+    then
+        return
+    fi
+    if [[ -s $PRIORFILE ]];
+    then
+        PRIOR=$(<$PRIORFILE)
+    else
+        if [ "$TOKEN" == "TUSD" ]
+        then
+            PRIOR=5198576 
+        elif [ "$TOKEN_ADDRESS" == '0x0000000000085d4780B73119b644AE5ecd22b376' ]
+        then
+            PRIOR=5198576 
+        elif [ "$TOKEN_ADDRESS" == '0x00000000441378008EA67F4284A57932B1c000a5' ]
+        then
+            PRIOR=7486978 
+        else
+            PRIOR=7504289
+        fi
+    fi
+}
