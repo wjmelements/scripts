@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# $1 - block type tag, e.g. instant
 function loadPriorBlock {
     # even if we don't load PRIORFILE, we need it to update it
     if [ "$TOKEN" == "TUSD" ]
