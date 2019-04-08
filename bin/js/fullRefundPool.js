@@ -12,11 +12,11 @@ function paddyPrint({ width, string }) {
 }
 
 let arr = [];
-let len = 3000;
+let length = 3000;
 function printLine({ start, end, pending }) {
-  paddyPrint({ string: `${start} - ${end}: `, width: String(len).length * 2 + 5 })
+  paddyPrint({ string: `${start} - ${end}: `, width: String(length).length * 2 + 5 })
   paddyPrint({ string: `${arr[start]} `, width: 14 })
-  process.stdout.write(`[${end - start + 1}${pending ? ' / ' + (len - start) + ']\r' : ']        \n'}`);
+  process.stdout.write(`[${end - start + 1}${pending ? ' / ' + (length - start) + ']\r' : ']        \n'}`);
 }
 
 let nextPrintStart = 0;
@@ -40,10 +40,10 @@ function printLines({ start, end }) {
 const BATCH_SIZE = 2500;
 
 async function run() {
-  len = await TrueUSD.methods.remainingGasRefundPool().call();
-  for (let i = 0; i < len; i += BATCH_SIZE) {
+  length = (await TrueUSD.methods.remainingGasRefundPool().call()).length;
+  for (let i = 0; i < length; i += BATCH_SIZE) {
     const batch = new web3.eth.BatchRequest();
-    for (let j = i; j < len && j < i + BATCH_SIZE; j++) {
+    for (let j = i; j < length && j < i + BATCH_SIZE; j++) {
       batch.add(TrueUSD.methods.gasRefundPool(j).call.request({}, 'latest', (err, result) => {
         if (err) {
           if (err.message !== "Returned values aren't valid, did it run Out of Gas?") {
@@ -51,7 +51,7 @@ async function run() {
           }
           return;
         }
-        arr[j] = result;
+        arr[j] = result.gasPrice;
       }));
     }
     await batch.execute().then((results) => {
@@ -60,19 +60,19 @@ async function run() {
         i -= BATCH_SIZE;
         return;
       }
-      printLines({ start: i, end: Math.min(i + BATCH_SIZE, len) - 1 });
+      printLines({ start: i, end: Math.min(i + BATCH_SIZE, length) - 1 });
     }).catch(async function(error) {
       if (!error.message.startsWith("BatchRequest error")) {
         console.error(error);
       }
       // retry
-      len = await TrueUSD.methods.remainingGasRefundPool().call();
+      length = await TrueUSD.methods.remainingGasRefundPool().call();
       i -= BATCH_SIZE;
     });
   }
   printLine({
     start: nextPrintStart,
-    end: len - 1,
+    end: length - 1,
   });
 }
 
