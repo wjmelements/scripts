@@ -15,6 +15,7 @@ const TokenAbi = require('../abi/trueUsdAbi.json');
 const Token = new web3.eth.Contract(TokenAbi, TokenAddress);
 
 abiDecoder.addABI(ControllerAbi);
+abiDecoder.addABI(TokenAbi);
 
 function formatRowSheet({ event, transaction }) {
     const decodedTransaction = abiDecoder.decodeMethod(transaction.input);
