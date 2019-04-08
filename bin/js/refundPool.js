@@ -20,10 +20,10 @@ function showTokenPool(i) {
   return new Promise((resolve, reject) => {
     new web3.eth.Contract(TrueUSDAbi, address).methods.remainingGasRefundPool().call().then((pool) => {
       console.log(name.bold)
-      let poolStr = String(Number(pool.length))
-      if (pool.length < 1800) {
+      let poolStr = String(Number(pool))
+      if (pool < 1800) {
         poolStr = poolStr.red;
-      } else if (pool.length < 6000) {
+      } else if (pool < 6000) {
         poolStr = poolStr.yellow;
       } else {
         poolStr = poolStr.green;

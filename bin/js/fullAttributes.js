@@ -4,7 +4,6 @@ const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 const RegistryAddress = '0x0000000000013949F288172bD7E36837bDdC7211';
 const RegistryAbi = require('../abi/registryAbi.json');
-const Registry = new web3.eth.Contract(RegistryAbi, RegistryAddress);
 
 const RegistryStartBlock = 6906932;
 
