@@ -2,20 +2,6 @@
   {
     "constant": true,
     "inputs": [],
-    "name": "trueUsdFastPause",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
     "name": "initialized",
     "outputs": [
       {
@@ -119,20 +105,6 @@
       {
         "name": "",
         "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "trueUSD",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
       }
     ],
     "payable": false,
@@ -273,6 +245,20 @@
   {
     "constant": true,
     "inputs": [],
+    "name": "fastPause",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
     "name": "pendingOwner",
     "outputs": [
       {
@@ -378,6 +364,20 @@
   {
     "constant": true,
     "inputs": [],
+    "name": "token",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
     "name": "instantMintLimit",
     "outputs": [
       {
@@ -473,7 +473,7 @@
         "type": "address"
       }
     ],
-    "name": "SetTrueUSD",
+    "name": "SetToken",
     "type": "event"
   },
   {
@@ -653,7 +653,7 @@
         "type": "address"
       }
     ],
-    "name": "TrueUsdFastPauseSet",
+    "name": "FastPauseSet",
     "type": "event"
   },
   {
@@ -1071,22 +1071,13 @@
   },
   {
     "constant": false,
-    "inputs": [],
-    "name": "incrementRedemptionAddressCount",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
     "inputs": [
       {
         "name": "_newContract",
         "type": "address"
       }
     ],
-    "name": "setTrueUSD",
+    "name": "setToken",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -1110,29 +1101,11 @@
     "constant": false,
     "inputs": [
       {
-        "name": "_name",
-        "type": "string"
-      },
-      {
-        "name": "_symbol",
-        "type": "string"
-      }
-    ],
-    "name": "changeTokenName",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
         "name": "_registry",
         "type": "address"
       }
     ],
-    "name": "setTusdRegistry",
+    "name": "setTokenRegistry",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -1147,28 +1120,6 @@
       }
     ],
     "name": "issueClaimOwnership",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_proxy",
-        "type": "address"
-      },
-      {
-        "name": "_balanceSheet",
-        "type": "address"
-      },
-      {
-        "name": "_allowanceSheet",
-        "type": "address"
-      }
-    ],
-    "name": "claimStorageForProxy",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -1237,7 +1188,7 @@
         "type": "address"
       }
     ],
-    "name": "setTrueUsdFastPause",
+    "name": "setFastPause",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -1246,7 +1197,7 @@
   {
     "constant": false,
     "inputs": [],
-    "name": "pauseTrueUSD",
+    "name": "pauseToken",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
