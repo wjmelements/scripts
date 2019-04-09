@@ -14,34 +14,6 @@
     "type": "function"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "ROUNDING",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint8"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "name",
-    "outputs": [
-      {
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "constant": false,
     "inputs": [
       {
@@ -90,34 +62,6 @@
   {
     "constant": true,
     "inputs": [],
-    "name": "CAN_BURN",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "initialized",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
     "name": "totalSupply",
     "outputs": [
       {
@@ -130,17 +74,17 @@
     "type": "function"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "IS_DEPOSIT_ADDRESS",
-    "outputs": [
+    "constant": false,
+    "inputs": [
       {
-        "name": "",
-        "type": "bytes32"
+        "name": "_minimumGasPriceForFutureRefunds",
+        "type": "uint256"
       }
     ],
+    "name": "setMinimumGasPriceForFutureRefunds",
+    "outputs": [],
     "payable": false,
-    "stateMutability": "view",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -207,27 +151,27 @@
     "type": "function"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "DECIMALS",
-    "outputs": [
+    "constant": false,
+    "inputs": [
       {
-        "name": "",
-        "type": "uint8"
+        "name": "_ownable",
+        "type": "address"
       }
     ],
+    "name": "reclaimContract",
+    "outputs": [],
     "payable": false,
-    "stateMutability": "view",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "constant": true,
     "inputs": [],
-    "name": "allowances",
+    "name": "minimumGasPriceForFutureRefunds",
     "outputs": [
       {
         "name": "",
-        "type": "address"
+        "type": "uint256"
       }
     ],
     "payable": false,
@@ -347,25 +291,6 @@
     "constant": false,
     "inputs": [
       {
-        "name": "_sheet",
-        "type": "address"
-      }
-    ],
-    "name": "setBalanceSheet",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
         "name": "spender",
         "type": "address"
       },
@@ -392,6 +317,20 @@
   {
     "constant": true,
     "inputs": [],
+    "name": "minimumGasPriceForRefund",
+    "outputs": [
+      {
+        "name": "result",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
     "name": "burnMax",
     "outputs": [
       {
@@ -401,6 +340,20 @@
     ],
     "payable": false,
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "paused",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "pure",
     "type": "function"
   },
   {
@@ -430,14 +383,14 @@
     "constant": true,
     "inputs": [
       {
-        "name": "_owner",
+        "name": "_who",
         "type": "address"
       }
     ],
     "name": "balanceOf",
     "outputs": [
       {
-        "name": "balance",
+        "name": "",
         "type": "uint256"
       }
     ],
@@ -476,52 +429,10 @@
   {
     "constant": true,
     "inputs": [],
-    "name": "balances",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "DELEGATE_FROM",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "HAS_PASSED_KYC_AML",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
     "name": "remainingGasRefundPool",
     "outputs": [
       {
-        "name": "",
+        "name": "length",
         "type": "uint256"
       }
     ],
@@ -530,17 +441,21 @@
     "type": "function"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "IS_BLACKLISTED",
-    "outputs": [
+    "constant": false,
+    "inputs": [
       {
-        "name": "",
-        "type": "bytes32"
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "name": "_to",
+        "type": "address"
       }
     ],
+    "name": "reclaimToken",
+    "outputs": [],
     "payable": false,
-    "stateMutability": "view",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -585,17 +500,17 @@
     "type": "function"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "symbol",
-    "outputs": [
+    "constant": false,
+    "inputs": [
       {
-        "name": "",
-        "type": "string"
+        "name": "_to",
+        "type": "address"
       }
     ],
+    "name": "reclaimEther",
+    "outputs": [],
     "payable": false,
-    "stateMutability": "view",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -663,43 +578,6 @@
     "type": "function"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "IS_REGISTERED_CONTRACT",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [],
-    "name": "incrementRedemptionAddressCount",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "redemptionAddressCount",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "constant": false,
     "inputs": [
       {
@@ -708,6 +586,15 @@
       }
     ],
     "name": "wipeBlacklistedAccount",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "sponsorGas2",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -740,7 +627,7 @@
     "constant": true,
     "inputs": [
       {
-        "name": "_owner",
+        "name": "_who",
         "type": "address"
       },
       {
@@ -774,36 +661,17 @@
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_sheet",
-        "type": "address"
-      }
-    ],
-    "name": "setAllowanceSheet",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [
       {
-        "name": "",
+        "name": "_index",
         "type": "uint256"
       }
     ],
     "name": "gasRefundPool",
     "outputs": [
       {
-        "name": "",
+        "name": "gasPrice",
         "type": "uint256"
       }
     ],
@@ -826,50 +694,26 @@
     "type": "function"
   },
   {
-    "anonymous": false,
+    "constant": false,
     "inputs": [
       {
-        "indexed": false,
-        "name": "newName",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "name": "newSymbol",
-        "type": "string"
-      }
-    ],
-    "name": "ChangeTokenName",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "name": "addr",
+        "name": "_who",
         "type": "address"
-      }
-    ],
-    "name": "RedemptionAddress",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "name": "newMin",
-        "type": "uint256"
       },
       {
-        "indexed": false,
-        "name": "newMax",
+        "name": "_attribute",
+        "type": "bytes32"
+      },
+      {
+        "name": "_value",
         "type": "uint256"
       }
     ],
-    "name": "SetBurnBounds",
-    "type": "event"
+    "name": "syncAttributeValue",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
     "anonymous": false,
@@ -904,17 +748,17 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": true,
-        "name": "to",
-        "type": "address"
+        "indexed": false,
+        "name": "newMin",
+        "type": "uint256"
       },
       {
         "indexed": false,
-        "name": "value",
+        "name": "newMax",
         "type": "uint256"
       }
     ],
-    "name": "Mint",
+    "name": "SetBurnBounds",
     "type": "event"
   },
   {
@@ -939,11 +783,16 @@
     "inputs": [
       {
         "indexed": true,
-        "name": "sheet",
+        "name": "to",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
       }
     ],
-    "name": "AllowanceSheetSet",
+    "name": "Mint",
     "type": "event"
   },
   {
@@ -966,18 +815,6 @@
       }
     ],
     "name": "Approval",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "name": "sheet",
-        "type": "address"
-      }
-    ],
-    "name": "BalanceSheetSet",
     "type": "event"
   },
   {
@@ -1048,67 +885,31 @@
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
+    "constant": true,
+    "inputs": [],
+    "name": "name",
+    "outputs": [
       {
-        "name": "_name",
-        "type": "string"
-      },
-      {
-        "name": "_symbol",
+        "name": "",
         "type": "string"
       }
     ],
-    "name": "changeTokenName",
-    "outputs": [],
     "payable": false,
-    "stateMutability": "nonpayable",
+    "stateMutability": "pure",
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
+    "constant": true,
+    "inputs": [],
+    "name": "symbol",
+    "outputs": [
       {
-        "name": "_to",
-        "type": "address"
+        "name": "",
+        "type": "string"
       }
     ],
-    "name": "reclaimEther",
-    "outputs": [],
     "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "token",
-        "type": "address"
-      },
-      {
-        "name": "_to",
-        "type": "address"
-      }
-    ],
-    "name": "reclaimToken",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_ownable",
-        "type": "address"
-      }
-    ],
-    "name": "reclaimContract",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
+    "stateMutability": "pure",
     "type": "function"
   }
 ]
