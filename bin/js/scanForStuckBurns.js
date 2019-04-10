@@ -9,6 +9,7 @@ const BATCH_SIZE = 2500;
 async function run() {
   const length = 0x100000;
   for (let i = 0; i < length; i += BATCH_SIZE) {
+    process.stdout.write(`\r${i} / ${length}`)
     const batch = new web3.eth.BatchRequest();
     for (let j = i; j < length && j < i + BATCH_SIZE; j++) {
       const address = web3.utils.toChecksumAddress(web3.utils.padLeft(web3.utils.toHex(j), 40));
@@ -20,6 +21,7 @@ async function run() {
           return;
         }
         if (Number(result)) {
+          process.stdout.write('\r')
           console.log(address, Number(result) / 1e18);
         }
       }));
@@ -33,5 +35,6 @@ async function run() {
       i -= BATCH_SIZE;
     });
   }
+  process.stdout.write('\r')
 }
 run();
