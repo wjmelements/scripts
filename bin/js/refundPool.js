@@ -13,6 +13,10 @@ const tokens = [
     address: '0x00000000441378008EA67F4284A57932B1c000a5',
     name: 'TrueGBP',
   },
+  {
+    address: '0x00006100F7090010005F1bd7aE6122c3C2CF0090',
+    name: 'TrueAUD',
+  },
 ];
 
 function showTokenPool(i) {
