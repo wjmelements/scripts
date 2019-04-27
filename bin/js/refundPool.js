@@ -17,6 +17,10 @@ const tokens = [
     address: '0x00006100F7090010005F1bd7aE6122c3C2CF0090',
     name: 'TrueAUD',
   },
+  {
+    address: '0x00000100F2A2bd000715001920eB70D229700085',
+    name: 'TrueCAD',
+  },
 ];
 
 function showTokenPool(i) {
