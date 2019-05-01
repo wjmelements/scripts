@@ -16,6 +16,7 @@ These are Ethereum utility scripts for TrustToken.
 * **refundPool** - Show sponsored transactions
 * **registryAttributes** - Show Registry attributes for addresses
 * **isBlacklisted** - Report whether addresses are blacklisted from TrueUSD
+* **subscribers** - Show Registry subscription state for addresses or attributes
 
 # Setup
 Create a new Github personal access token and give it `repo` permissions.
@@ -230,6 +231,16 @@ If you supply `-a` with an address filter, the output will be in the table forma
     isBlacklisted [address...]
 
 Shows whether the given address(es) are blacklisted in the TrustToken Registry.
+
+## subscribers
+
+    subscribers [attributeOrContract...]
+
+Contracts and attributes can be specified by name or with hexadecimal.
+
+    subscribers TrueUSD
+    subscribers DEPOSIT_ADDRESS
+    subscribers burm
 
 # Configuration
 ## Text Editor
