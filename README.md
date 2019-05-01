@@ -15,6 +15,7 @@ These are Ethereum utility scripts for TrustToken.
 * **finalizeMints** - List recent TrueUSD Mint events
 * **refundPool** - Show sponsored transactions
 * **registryAttributes** - Show Registry attributes for addresses
+* **writeAttributeFor** - Show write attribute for a specified attribute
 * **isBlacklisted** - Report whether addresses are blacklisted from TrueUSD
 * **subscribers** - Show Registry subscription state for addresses or attributes
 
@@ -225,6 +226,15 @@ If you supply multiple addresses, you will get the attributes for both addresses
 #### With -a
 If you only specify an address filter but do not supply `-a`, the output will be in the address-row format.
 If you supply `-a` with an address filter, the output will be in the table format.
+
+## writeAttributeFor
+
+    writeAttributeFor [query...]
+
+Queries can be case-insensitives substrings of attributes or hexadecimal bytes32 values.
+
+    writeAttributeFor write_can_burn_aud
+    writeAttributeFor 0xced374f2f4976e82126b869174d6abf326dc28df27bd0efa486f1ba8a6577143
 
 ## isBlacklisted
 
