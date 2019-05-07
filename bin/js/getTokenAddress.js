@@ -17,6 +17,7 @@ const nameToAddress = {
   TCADController: '0x00005cAD001e0900002979f7314D00Fc480a29bD',
   TrueCADController: '0x00005cAD001e0900002979f7314D00Fc480a29bD',
 }
+// checksumAddress -> nameLong
 const addressToName = {
   '0x0000000000085d4780B73119b644AE5ecd22b376' : 'TrueUSD',
   '0x00000000441378008EA67F4284A57932B1c000a5' : 'TrueGBP',
@@ -26,6 +27,7 @@ const addressToName = {
   '0x00000000BbcF7700A1b403C9EB666f350707b900' : 'TrueGBPController',
   '0x0000109a8344DE9c00465264006C0000769A2770' : 'TrueAUDController',
   '0x00005cAD001e0900002979f7314D00Fc480a29bD' : 'TrueCADController',
+  '0x0000000000013949F288172bD7E36837bDdC7211' : 'Registry',
 }
 const tokenToController = {
   '0x00000000441378008EA67F4284A57932B1c000a5': '0x00000000BbcF7700A1b403C9EB666f350707b900',
@@ -51,4 +53,5 @@ module.exports = {
   getControllerAddress,
   addressToName,
   nameToAddress,
+  tokenToController,
 }
