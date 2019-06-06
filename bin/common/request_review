@@ -17,7 +17,7 @@ function request_review {
         && echo -n $ERROR_BEGIN\
         && cat $RR_ERR \
         && echo -n $ERROR_END
-    cat $RR_OUT | jq -er .errors[] > $RR_ERRS \
+    cat $RR_OUT | jq -er .errors[] 2>/dev/null > $RR_ERRS \
         && echo -n $ERROR_BEGIN\
         && cat $RR_ERRS \
         && echo -n $ERROR_END
