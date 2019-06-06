@@ -10,9 +10,10 @@ These are workflow scripts for Github productivity.
 These are Ethereum utility scripts for TrustToken.
 
 * **web3** - Evaluate web3
-* **requestMints** - List recent TrueUSD RequestMint Events
-* **instantMints** - List recent TrueUSD InstantMint Events
-* **finalizeMints** - List recent TrueUSD Mint events
+* **requestMints** - List recent RequestMint Events
+* **instantMints** - List recent InstantMint Events
+* **finalizeMints** - List recent Mint events
+* **pendingMints** - List pending mints for tokens
 * **refundPool** - Show sponsored transactions
 * **registryAttributes** - Show Registry attributes for addresses
 * **writeAttributeFor** - Show write attribute for a specified attribute
@@ -198,6 +199,13 @@ Specify starting block
 
 ### -t token
 Specify token, e.g. TrueUSD, TUSD, or 0x0000000000085d4780B73119b644AE5ecd22b376.
+
+## pendingMints
+
+    pendingMints [token...]
+
+If specified with no tokens, all tokens are shown.
+Tokens can be specified by name (TrueUSD) or by symbol (TUSD).
 
 ## refundPool
 

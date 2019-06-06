@@ -1,4 +1,5 @@
 web3 = require('./web3.js');
+const { CALL_BATCH_SIZE } = require('./config.js')
 
 const TrueUSDAddress = '0x0000000000085d4780B73119b644AE5ecd22b376';
 const TrueUSDAbi = require('../abi/trueUsdAbi.json')
@@ -37,13 +38,11 @@ function printLines({ start, end }) {
   })
 }
 
-const BATCH_SIZE = 2500;
-
 async function run() {
   length = (await TrueUSD.methods.remainingGasRefundPool().call()).length;
-  for (let i = 0; i < length; i += BATCH_SIZE) {
+  for (let i = 0; i < length; i += CALL_BATCH_SIZE) {
     const batch = new web3.eth.BatchRequest();
-    for (let j = i; j < length && j < i + BATCH_SIZE; j++) {
+    for (let j = i; j < length && j < i + CALL_BATCH_SIZE; j++) {
       batch.add(TrueUSD.methods.gasRefundPool(j).call.request({}, 'latest', (err, result) => {
         if (err) {
           if (err.message !== "Returned values aren't valid, did it run Out of Gas?") {
@@ -57,17 +56,17 @@ async function run() {
     await batch.execute().then((results) => {
       if (arr[i] == null) {
         // retry
-        i -= BATCH_SIZE;
+        i -= CALL_BATCH_SIZE;
         return;
       }
-      printLines({ start: i, end: Math.min(i + BATCH_SIZE, length) - 1 });
+      printLines({ start: i, end: Math.min(i + CALL_BATCH_SIZE, length) - 1 });
     }).catch(async function(error) {
       if (!error.message.startsWith("BatchRequest error")) {
         console.error(error);
       }
       // retry
       length = await TrueUSD.methods.remainingGasRefundPool().call();
-      i -= BATCH_SIZE;
+      i -= CALL_BATCH_SIZE;
     });
   }
   printLine({

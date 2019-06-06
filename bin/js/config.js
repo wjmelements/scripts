@@ -1,0 +1,6 @@
+const CALL_BATCH_SIZE = 2500;
+const EVENT_BATCH_SIZE = 100000;
+module.exports = {
+    CALL_BATCH_SIZE,
+    EVENT_BATCH_SIZE,
+}

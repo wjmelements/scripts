@@ -4,6 +4,7 @@ const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 const RegistryAddress = '0x0000000000013949F288172bD7E36837bDdC7211';
 const RegistryAbi = require('../abi/registryAbi.json');
+const { EVENT_BATCH_SIZE } = require('./config.js')
 
 const RegistryStartBlock = 6906932;
 
@@ -132,15 +133,13 @@ function getEvents({ fromBlock, toBlock }) {
   });
 }
 
-const BATCH_SIZE = 100000;
-
 async function run() {
   const endBlock = await web3.eth.getBlockNumber();
   let promises = [];
-  for (let fromBlock = RegistryStartBlock; fromBlock <= endBlock; fromBlock += BATCH_SIZE) {
+  for (let fromBlock = RegistryStartBlock; fromBlock <= endBlock; fromBlock += EVENT_BATCH_SIZE) {
     promises.push(getEvents({
       fromBlock,
-      toBlock: Math.min(fromBlock + BATCH_SIZE - 1, endBlock)
+      toBlock: Math.min(fromBlock + EVENT_BATCH_SIZE - 1, endBlock)
     }).then((events) => events.sort((one, two) => one.blockNumber - two.blockNumber)).catch(console.error));
   }
   await Promise.all(promises).then(applyEvents).then(printRegistry);
