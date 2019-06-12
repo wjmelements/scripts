@@ -21,6 +21,10 @@ const tokens = [
     address: '0x00000100F2A2bd000715001920eB70D229700085',
     name: 'TrueCAD',
   },
+  {
+    address: '0x0000852600CEB001E08e00bC008be620d60031F2',
+    name: 'TrueHKD',
+  },
 ];
 
 function showTokenPool(i) {
