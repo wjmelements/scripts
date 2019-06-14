@@ -34,6 +34,7 @@ function loadPriorBlock {
         then
             PRIOR=7646183 # 0x32c1daf0370f254820eb2975e701757c499b498b462d85acac57521d9e190742
         elif [ "$TOKEN_ADDRESS" == '0x0000852600CEB001E08e00bC008be620d60031F2' ]
+        then
             PRIOR=7940623 # 0xcb9dfb1c8e764912c72a0d7e63bc6d3b5a9b9507736f0f40bde730dbfc62709b
         else
             PRIOR=7999999
