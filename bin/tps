@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source $(dirname $0)/common/init
+
+node $(dirname $0)/js/tps.js 
