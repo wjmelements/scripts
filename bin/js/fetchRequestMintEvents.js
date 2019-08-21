@@ -47,7 +47,7 @@ req.onreadystatechange = () => {
         blockNumber: web3.utils.hexToNumberString(result.blockNumber),
         returnValues: {
           opIndex: web3.utils.hexToNumberString(result.data.slice(0, 66)),
-          to: '0x' + result.topics[1].slice(26),
+          to: web3.utils.toChecksumAddress('0x' + result.topics[1].slice(26)),
           value: web3.utils.hexToNumberString(result.topics[2]),
           mintKey: '0x' + result.data.slice(90),
         },
