@@ -64,7 +64,7 @@ req.onreadystatechange = () => {
         ...result,
         blockNumber: web3.utils.hexToNumberString(result.blockNumber),
         returnValues: {
-          to: '0x' + result.topics[1].slice(26),
+          to: web3.utils.toChecksumAddress('0x' + result.topics[1].slice(26)),
           value: web3.utils.hexToNumberString(result.topics[2]),
           mintKey: '0x' + result.topics[3].slice(26),
         },
@@ -78,7 +78,7 @@ req.send(JSON.stringify({
   "method": "eth_getLogs",
   "params": [{
     "topics":[
-      /* RequestMint */ '0xec755a4feb8086d62e216ca919461349221df54bf9ca83300b7a2bf8e5807dfc',
+      /* InstantMint */ '0xec755a4feb8086d62e216ca919461349221df54bf9ca83300b7a2bf8e5807dfc',
     ],
     "address": controllerAddress,
     "fromBlock": web3.utils.toHex(fromBlock),
