@@ -24,6 +24,12 @@ const TAUDController = new web3.eth.Contract(ControllerAbi, TAUDControllerAddres
 const TCADController = new web3.eth.Contract(ControllerAbi, TCADControllerAddress);
 const THKDController = new web3.eth.Contract(ControllerAbi, THKDControllerAddress);
 
+const TUSDMultisigAddress = '0x285D362E41CcC116192A17D21a87f41Fc26d32F9';
+const TGBPMultisigAddress = web3.utils.toChecksumAddress('0x2bbc38f909e780dfd4036a087f88cc8ec0e0eaf4')
+const TAUDMultisigAddress = web3.utils.toChecksumAddress('0x2a8d368f7759fb8d0c49a5c7a10fd190704a902d')
+const TCADMultisigAddress = web3.utils.toChecksumAddress('0x2cad3143f61f1ff3a9d684078b502eebac87ec0e')
+const THKDMultisigAddress = web3.utils.toChecksumAddress('0x245d36155c19D92177F6b7D2B41f1f43a28A4350')
+
 const RegistryAddress = '0x0000000000013949F288172bD7E36837bDdC7211';
 const RegistryAbi = require('../abi/registryAbi.json');
 const Registry = new web3.eth.Contract(RegistryAbi, RegistryAddress);
