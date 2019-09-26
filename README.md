@@ -19,6 +19,8 @@ These are Ethereum utility scripts for TrustToken.
 * **writeAttributeFor** - Show write attribute for a specified attribute
 * **isBlacklisted** - Report whether addresses are blacklisted from TrueUSD
 * **subscribers** - Show Registry subscription state for addresses or attributes
+* **uniswaps** - Show Uniswap markets
+* **unitrades** - Show recent Uniswap trades
 
 # Setup
 Create a new Github personal access token and give it `repo` permissions.
@@ -258,7 +260,7 @@ Contracts and attributes can be specified by name or with hexadecimal.
 
     subscribers TrueUSD
     subscribers DEPOSIT_ADDRESS
-    subscribers burm
+    subscribers burn
 
 # Configuration
 ## Text Editor

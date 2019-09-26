@@ -1,0 +1,18 @@
+#!/bin/bash
+
+START_BLOCK=""
+END_BLOCK=""
+BLOCK_DIFF=""
+GROUP=""
+
+while getopts 'gs:e:d:' flag; do
+    case "${flag}" in
+        s) START_BLOCK="${OPTARG}" ;;
+        g) GROUP=group ;;
+        e) END_BLOCK="${OPTARG}" ;;
+        d) BLOCK_DIFF="${OPTARG}" ;;
+        *) error "Unexpected option ${flag}" ;;
+    esac
+done
+
+node $(dirname $0)/js/unitrades.js "$START_BLOCK" "$END_BLOCK" "$BLOCK_DIFF" "$GROUP"
