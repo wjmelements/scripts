@@ -220,9 +220,13 @@ With this switch, the script shows the entire state of the `gasRefundPool` array
 
 ## registryAttributes
 
-    registryAttributes [-a] [address...] [attribute...]
+    registryAttributes [-a] [-l] [address...] [attribute...]
 
 Shows all of the known attributes set for the provided address(es) in the TrustToken Registry.
+
+
+### -l
+Ignore other parameters and show a list of base (non-WRITE) attributes and their values.
 
 ### -a
 With this switch, the script shows the entire state of the Registry.

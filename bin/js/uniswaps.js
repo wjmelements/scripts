@@ -12,6 +12,11 @@ for (const tokenAddress in tokenToController) {
 }
 // additional tokens
 tokens.push({
+    tokenAddress: '0x27054b13b1B798B345b591a4d22e6562d47eA75a',
+    tokenName: 'AST',
+    decimals: 4,
+})
+tokens.push({
     tokenAddress: '0x4f3AfEC4E5a3F2A6a1A411DEF7D7dFe50eE057bF',
     tokenName: 'DGX',
     decimals: 9,
@@ -38,6 +43,10 @@ tokens.push({
     tokenName: 'DAI',
 })
 tokens.push({
+    tokenName: 'MCD',
+    tokenAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+})
+tokens.push({
     tokenAddress: '0x8e870d67f660d95d5be530380d0ec0bd388289e1',
     tokenName: 'PAX',
 })
@@ -62,6 +71,21 @@ tokens.push({
 tokens.push({
     tokenAddress: '0x514910771AF9Ca656af840dff83E8264EcF986CA',
     tokenName: 'LINK',
+})
+tokens.push({
+    tokenAddress: '0xF5DCe57282A584D2746FaF1593d3121Fcac444dC',
+    decimals: 8,
+    tokenName: 'cDAI'
+})
+tokens.push({
+    tokenAddress: '0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5',
+    decimals: 8,
+    tokenName: 'cETH'
+})
+tokens.push({
+    tokenAddress: '0x39AA39c021dfbaE8faC545936693aC917d5E7563',
+    decimals: 8,
+    tokenName: 'cUSDC'
 })
 /* No USDT Uniswap
 tokens.push({

@@ -1,8 +1,9 @@
 #!/bin/bash
 
-while getopts 'a' flag; do
+while getopts 'al' flag; do
     case "${flag}" in
         a) ALL=true ;;
+        l) LIST=true ;;
         *) error "Unexpected option ${flag}" ;;
     esac
 done
@@ -23,6 +24,12 @@ then
       break
     fi
   done
+fi
+
+if [ -n "$LIST" ]
+then
+  node $(dirname $0)/js/listAttributes $@
+  exit
 fi
 
 if [ -n "$ALL" ]
