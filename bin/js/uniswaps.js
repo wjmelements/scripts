@@ -31,6 +31,11 @@ tokens.push({
     tokenName: 'WETH',
 })
 tokens.push({
+    tokenAddress: "0x0D8775F648430679A709E98d2b0Cb6250d2887EF",
+    tokenName: 'BAT',
+    decimals: 18,
+})
+tokens.push({
     tokenAddress: '0xB62132e35a6c13ee1EE0f84dC5d40bad8d815206',
     tokenName: 'NEX',
 })
@@ -40,10 +45,10 @@ tokens.push({
 })
 tokens.push({
     tokenAddress: '0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359',
-    tokenName: 'DAI',
+    tokenName: 'SAI',
 })
 tokens.push({
-    tokenName: 'MCD',
+    tokenName: 'DAI',
     tokenAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F'
 })
 tokens.push({
@@ -86,6 +91,16 @@ tokens.push({
     tokenAddress: '0x39AA39c021dfbaE8faC545936693aC917d5E7563',
     decimals: 8,
     tokenName: 'cUSDC'
+})
+tokens.push({
+    tokenAddress: '0xA4Bdb11dc0a2bEC88d24A3aa1E6Bb17201112eBe',
+    decimals: 6,
+    tokenName: 'USDS'
+})
+tokens.push({
+    tokenAddress: '0x4Fabb145d64652a948d72533023f6E7A623C7C53',
+    decimals: 18,
+    tokenName: 'BUSD'
 })
 /* No USDT Uniswap
 tokens.push({
