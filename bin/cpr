@@ -82,11 +82,21 @@ EOF
 " > $FORM
 fi
 
-if [ -z "$EDITOR" ]
+if [ -t 0 ]
 then
-    nano $FORM
+    if [ -z "$EDITOR" ]
+    then
+        nano $FORM
+    else
+        $EDITOR $FORM
+    fi
 else
-    $EDITOR $FORM
+    echo "Write your PR description to: $FORM"
+    echo "Press Enter when ready to submit."
+    # If stdin is a pipe, wait for a signal (newline) before submitting.
+    # This lets a non-interactive caller write the form then unblock us.
+    # If stdin is /dev/null or a file, read returns immediately (EOF).
+    read -r _
 fi
 
 if [ ! -s $FORM ]
