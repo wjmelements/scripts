@@ -58,7 +58,11 @@ then
     git push origin $BRANCH || exit 1
 fi
 
-TITLE=$(echo $BRANCH | sed -e 's/[_-]/ /g' | awk '{for (i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)} 1')
+if [[ "$BRANCH" =~ ^([a-z]+)/(.+)$ ]]; then
+    TITLE="${BASH_REMATCH[1]}: $(echo "${BASH_REMATCH[2]}" | sed -e 's/[_-]/ /g')"
+else
+    TITLE=$(echo $BRANCH | sed -e 's/[_-]/ /g' | awk '{for (i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)} 1')
+fi
 
 # create template if last time was not error
 if [ ! -s $FORM ]
